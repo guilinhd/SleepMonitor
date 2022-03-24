@@ -44,6 +44,11 @@ namespace SleepMonitor.Services
         /// <param name="model">传感器数据</param>
         public void Add(SensorModel model)
         {
+            if (_breathCount > 2147483647)
+            {
+                _breathCount = 0;
+            }
+
             _breathCount++;
             _breathWaveCount++;
 
@@ -78,6 +83,8 @@ namespace SleepMonitor.Services
                 return;
             }
 
+            
+
             //左边3个数据的平均值
             double leftValue = (_breathFilers.ElementAt(0) + _breathFilers.ElementAt(1) + _breathFilers.ElementAt(2)) / 3;
             //后边3个数据的平均值
@@ -92,11 +99,11 @@ namespace SleepMonitor.Services
                 waveType = _raws.Last().Type;
             }
             int waveStatus = 0;
-            if (leftValue < midValue && RightValue < midValue && waveType && _breathCount > 20)  //强制寻波峰
+            if (leftValue < midValue && RightValue < midValue && waveType && _breathWaveCount > 20)  //强制寻波峰
             {
                 waveStatus = 1;
             }
-            else if (leftValue >= midValue && RightValue >= midValue && !waveType && _breathCount > 20) //强制寻波谷
+            else if (leftValue >= midValue && RightValue >= midValue && !waveType && _breathWaveCount > 20) //强制寻波谷
             {
                 waveStatus = 2;
             }
@@ -109,6 +116,7 @@ namespace SleepMonitor.Services
                     X = _breathCount
                 });
 
+                Console.WriteLine($"Ph.Hx :{_breathCount}");
                 _breathWaveCount = 0;
                 BreathWaveValid();
             }
@@ -122,7 +130,7 @@ namespace SleepMonitor.Services
         private void BreathWaveValid()
         {
 
-            if (_raws.Count < 7)
+            if (_raws.Count <= 7)
             {
                 return;
             }
@@ -138,7 +146,7 @@ namespace SleepMonitor.Services
         /// </summary>
         private void BreathOk()
         {
-            if (_breathOks.Count < 4)
+            if (_breathOks.Count <= 4)
             {
                 return;
             }

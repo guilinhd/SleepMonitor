@@ -45,11 +45,13 @@ namespace SleepMointorDemo
             this.txtTimeOut = new System.Windows.Forms.TextBox();
             this.cboPortName = new System.Windows.Forms.ComboBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.txtBreath = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Btn_receive
             // 
-            this.Btn_receive.Location = new System.Drawing.Point(183, 108);
+            this.Btn_receive.Location = new System.Drawing.Point(147, 361);
             this.Btn_receive.Name = "Btn_receive";
             this.Btn_receive.Size = new System.Drawing.Size(122, 23);
             this.Btn_receive.TabIndex = 21;
@@ -79,7 +81,7 @@ namespace SleepMointorDemo
             // 
             // Btn_open
             // 
-            this.Btn_open.Location = new System.Drawing.Point(55, 108);
+            this.Btn_open.Location = new System.Drawing.Point(19, 361);
             this.Btn_open.Name = "Btn_open";
             this.Btn_open.Size = new System.Drawing.Size(122, 23);
             this.Btn_open.TabIndex = 19;
@@ -181,11 +183,30 @@ namespace SleepMointorDemo
             this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // txtBreath
+            // 
+            this.txtBreath.Location = new System.Drawing.Point(77, 60);
+            this.txtBreath.Name = "txtBreath";
+            this.txtBreath.Size = new System.Drawing.Size(69, 21);
+            this.txtBreath.TabIndex = 45;
+            this.txtBreath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(12, 65);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(65, 12);
+            this.label42.TabIndex = 44;
+            this.label42.Text = "呼吸率输出";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 407);
+            this.Controls.Add(this.txtBreath);
+            this.Controls.Add(this.label42);
             this.Controls.Add(this.cboPortName);
             this.Controls.Add(this.txtTimeOut);
             this.Controls.Add(this.textBox4);
@@ -226,6 +247,8 @@ namespace SleepMointorDemo
         private System.Windows.Forms.TextBox txtTimeOut;
         private System.Windows.Forms.ComboBox cboPortName;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox txtBreath;
+        private System.Windows.Forms.Label label42;
     }
 }
 

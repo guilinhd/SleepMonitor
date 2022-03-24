@@ -165,7 +165,9 @@ namespace SleepMointorDemo
 
         private void GetBreath(double count)
         {
-            Console.WriteLine($"呼吸输出:{count:0.0}");
+            txtBreath.Text = count.ToString("0.0");
+
+            //Console.WriteLine($"呼吸输出:{count:0.0}");
         }
 
         /// <summary>
