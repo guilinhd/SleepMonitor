@@ -189,14 +189,17 @@ namespace SleepMointorDemo
         /// <param name="data">单行数据</param>
         private void DataHand(string data)
         {
-            //解析数据
-            SensorModel model = new SensorModel().GetRaw(data.Substring(4));
+            if ((data.Contains("AA33") && data.Length == 108) | (data.Contains("AA35") && data.Length == 112))
+            {
+                //解析数据
+                SensorModel model = new SensorModel().GetRaw(data.Substring(4));
 
-            //添加呼吸数据
-            _breathMonitorService.Add(model);
+                //添加呼吸数据
+                _breathMonitorService.Add(model);
 
-            //添加心跳数据
-            //_heartBeatMonitorService.Add(model);
+                //添加心跳数据
+                //_heartBeatMonitorService.Add(model);
+            }
         }
     }
 }
