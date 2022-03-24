@@ -85,7 +85,7 @@ namespace SleepMointorDemo
             this.Btn_open.TabIndex = 19;
             this.Btn_open.Text = "打开串口";
             this.Btn_open.UseVisualStyleBackColor = true;
-            this.Btn_open.Click += new System.EventHandler(this.Btn_receive_Click);
+            this.Btn_open.Click += new System.EventHandler(this.Btn_open_Click);
             // 
             // label6
             // 

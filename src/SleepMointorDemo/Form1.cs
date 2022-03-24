@@ -40,6 +40,38 @@ namespace SleepMointorDemo
         }
 
         /// <summary>
+        /// 开启或关闭 两个通信的串口，刷新按钮状态
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Btn_open_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_pchReceive.PortState)
+                {
+                    //pchSend.ClosePort();
+                    _pchReceive.ClosePort();
+                }
+                else
+                {
+                    //pchSend.OpenPort(cb_portNameSend.Text, int.Parse(cb_baudRate.Text),
+                    //int.Parse(cb_dataBit.Text), int.Parse(cb_stopBit.Text),
+                    //int.Parse(cb_timeout.Text));
+                    _pchReceive.OpenPort(cboPortName.Text, int.Parse(txtBoudRate.Text),
+                       int.Parse(txtDataBit.Text), int.Parse(txtStopBit.Text),
+                       int.Parse(txtTimeOut.Text));
+                    timer1.Enabled = true;
+                }
+                FreshBtnState(_pchReceive.PortState);
+                _pchReceive.OnComReceiveDataHandler += new PortControlHelper.ComReceiveDataHandler(ComReceiveData);
+                Btn_receive.Text = "停止接收";
+                _receiveState = true;
+            }
+            catch { }
+        }
+
+        /// <summary>
         /// 点击 开始接收 按钮，开始监听串口接收入口数据
         /// </summary>
         /// <param name="sender"></param>
@@ -59,6 +91,24 @@ namespace SleepMointorDemo
                 Btn_receive.Text = "停止接收";
                 _receiveState = true;
                 timer1.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// 刷新按钮状态
+        /// </summary>
+        /// <param name="state"></param>
+        private void FreshBtnState(bool state)
+        {
+            if (state)
+            {
+                Btn_open.Text = "关闭串口";
+                Btn_receive.Enabled = true;
+            }
+            else
+            {
+                Btn_open.Text = "打开串口";
+                Btn_receive.Enabled = false;
             }
         }
 
@@ -146,7 +196,7 @@ namespace SleepMointorDemo
             _breathMonitorService.Add(model);
 
             //添加心跳数据
-            _heartBeatMonitorService.Add(model);
+            //_heartBeatMonitorService.Add(model);
         }
     }
 }
