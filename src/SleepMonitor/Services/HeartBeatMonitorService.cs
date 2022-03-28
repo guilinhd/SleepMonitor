@@ -112,7 +112,7 @@ namespace SleepMonitor.Services
             bool waveType = false;
             if (_raws.Count > 0)
             {
-                waveType = _raws.Last().Type;
+                waveType = !_raws.Last().Type;
             }
             int waveStatus = 0;
             if (leftValue < midValue && RightValue < midValue && waveType)  //强制寻波峰
