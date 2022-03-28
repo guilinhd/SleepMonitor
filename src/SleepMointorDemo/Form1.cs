@@ -210,7 +210,7 @@ namespace SleepMointorDemo
                 _breathMonitorService.Add(model);
 
                 //添加心跳数据
-                //_heartBeatMonitorService.Add(model);
+                _heartBeatMonitorService.Add(model);
             }
         }
     }
