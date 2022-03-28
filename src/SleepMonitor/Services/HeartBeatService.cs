@@ -99,7 +99,7 @@ namespace SleepMonitor.Services
         /// </summary>
         private void HeartBeatFilter()
         {
-            if (_heartBeatFilters.Count <= 7)
+            if (_heartBeatFilters.Count < 7)
             {
                 return;
             }

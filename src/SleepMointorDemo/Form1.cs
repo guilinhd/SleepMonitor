@@ -164,13 +164,13 @@ namespace SleepMointorDemo
             {
                 txtReverse.Text = count.ToString("0.0");
                 txtReverseCount.Text = _heartBeatMonitorService.TroughCount.ToString();
-                txtReverseDetail.Text += count.ToString("0.0") + "\r";
+                txtReverseDetail.Text += count.ToString("0.0") + "\r\n";
             }
             else
             {
                 txtForward.Text = count.ToString("0.0");
                 txtForwardCount.Text = _heartBeatMonitorService.PeakCount.ToString();
-                txtForwardDetail.Text += count.ToString("0.0") + "\r";
+                txtForwardDetail.Text += count.ToString("0.0") + "\r\n";
             }
         }
 
