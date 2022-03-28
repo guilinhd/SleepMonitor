@@ -160,14 +160,24 @@ namespace SleepMointorDemo
 
         private void GetHeartBeat(string msg, double count)
         {
-            Console.WriteLine($"{msg} == {count}");
+            if (msg.Contains("反向波"))
+            {
+                txtReverse.Text = count.ToString("0.0");
+                txtReverseCount.Text = _heartBeatMonitorService.TroughCount.ToString();
+                txtReverseDetail.Text += count.ToString("0.0") + "\r";
+            }
+            else
+            {
+                txtForward.Text = count.ToString("0.0");
+                txtForwardCount.Text = _heartBeatMonitorService.PeakCount.ToString();
+                txtForwardDetail.Text += count.ToString("0.0") + "\r";
+            }
         }
 
         private void GetBreath(double count)
         {
             txtBreath.Text = count.ToString("0.0");
-
-            //Console.WriteLine($"呼吸输出:{count:0.0}");
+            txtBreathDetail.Text += count.ToString("0.0") + "\r";
         }
 
         /// <summary>

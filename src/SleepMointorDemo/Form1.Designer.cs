@@ -47,13 +47,24 @@ namespace SleepMointorDemo
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.txtBreath = new System.Windows.Forms.TextBox();
             this.label42 = new System.Windows.Forms.Label();
+            this.txtBreathDetail = new System.Windows.Forms.RichTextBox();
+            this.txtForward = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtForwardCount = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtForwardDetail = new System.Windows.Forms.TextBox();
+            this.txtReverse = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtReverseCount = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtReverseDetail = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Btn_receive
             // 
-            this.Btn_receive.Location = new System.Drawing.Point(147, 361);
+            this.Btn_receive.Location = new System.Drawing.Point(886, 23);
             this.Btn_receive.Name = "Btn_receive";
-            this.Btn_receive.Size = new System.Drawing.Size(122, 23);
+            this.Btn_receive.Size = new System.Drawing.Size(100, 23);
             this.Btn_receive.TabIndex = 21;
             this.Btn_receive.Text = "接受数据";
             this.Btn_receive.UseVisualStyleBackColor = true;
@@ -81,9 +92,9 @@ namespace SleepMointorDemo
             // 
             // Btn_open
             // 
-            this.Btn_open.Location = new System.Drawing.Point(19, 361);
+            this.Btn_open.Location = new System.Drawing.Point(786, 23);
             this.Btn_open.Name = "Btn_open";
-            this.Btn_open.Size = new System.Drawing.Size(122, 23);
+            this.Btn_open.Size = new System.Drawing.Size(100, 23);
             this.Btn_open.TabIndex = 19;
             this.Btn_open.Text = "打开串口";
             this.Btn_open.UseVisualStyleBackColor = true;
@@ -185,7 +196,7 @@ namespace SleepMointorDemo
             // 
             // txtBreath
             // 
-            this.txtBreath.Location = new System.Drawing.Point(77, 60);
+            this.txtBreath.Location = new System.Drawing.Point(90, 69);
             this.txtBreath.Name = "txtBreath";
             this.txtBreath.Size = new System.Drawing.Size(69, 21);
             this.txtBreath.TabIndex = 45;
@@ -194,17 +205,122 @@ namespace SleepMointorDemo
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(12, 65);
+            this.label42.Location = new System.Drawing.Point(25, 74);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(65, 12);
             this.label42.TabIndex = 44;
             this.label42.Text = "呼吸率输出";
             // 
+            // txtBreathDetail
+            // 
+            this.txtBreathDetail.Location = new System.Drawing.Point(19, 96);
+            this.txtBreathDetail.Name = "txtBreathDetail";
+            this.txtBreathDetail.Size = new System.Drawing.Size(263, 355);
+            this.txtBreathDetail.TabIndex = 46;
+            this.txtBreathDetail.Text = "";
+            // 
+            // txtForward
+            // 
+            this.txtForward.Location = new System.Drawing.Point(397, 65);
+            this.txtForward.Name = "txtForward";
+            this.txtForward.Size = new System.Drawing.Size(76, 21);
+            this.txtForward.TabIndex = 48;
+            this.txtForward.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(302, 69);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(89, 12);
+            this.label8.TabIndex = 47;
+            this.label8.Text = "正向波心率输出";
+            // 
+            // txtForwardCount
+            // 
+            this.txtForwardCount.Location = new System.Drawing.Point(553, 65);
+            this.txtForwardCount.Name = "txtForwardCount";
+            this.txtForwardCount.Size = new System.Drawing.Size(76, 21);
+            this.txtForwardCount.TabIndex = 50;
+            this.txtForwardCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(488, 69);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(65, 12);
+            this.label18.TabIndex = 49;
+            this.label18.Text = "正向波计数";
+            // 
+            // txtForwardDetail
+            // 
+            this.txtForwardDetail.Location = new System.Drawing.Point(304, 96);
+            this.txtForwardDetail.Multiline = true;
+            this.txtForwardDetail.Name = "txtForwardDetail";
+            this.txtForwardDetail.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtForwardDetail.Size = new System.Drawing.Size(339, 355);
+            this.txtForwardDetail.TabIndex = 51;
+            // 
+            // txtReverse
+            // 
+            this.txtReverse.Location = new System.Drawing.Point(761, 65);
+            this.txtReverse.Name = "txtReverse";
+            this.txtReverse.Size = new System.Drawing.Size(76, 21);
+            this.txtReverse.TabIndex = 53;
+            this.txtReverse.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(666, 69);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(89, 12);
+            this.label13.TabIndex = 52;
+            this.label13.Text = "反向波心率输出";
+            // 
+            // txtReverseCount
+            // 
+            this.txtReverseCount.Location = new System.Drawing.Point(911, 65);
+            this.txtReverseCount.Name = "txtReverseCount";
+            this.txtReverseCount.Size = new System.Drawing.Size(76, 21);
+            this.txtReverseCount.TabIndex = 55;
+            this.txtReverseCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(846, 69);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(65, 12);
+            this.label19.TabIndex = 54;
+            this.label19.Text = "反向波计数";
+            // 
+            // txtReverseDetail
+            // 
+            this.txtReverseDetail.Location = new System.Drawing.Point(668, 96);
+            this.txtReverseDetail.Multiline = true;
+            this.txtReverseDetail.Name = "txtReverseDetail";
+            this.txtReverseDetail.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtReverseDetail.Size = new System.Drawing.Size(319, 355);
+            this.txtReverseDetail.TabIndex = 56;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 407);
+            this.ClientSize = new System.Drawing.Size(1002, 468);
+            this.Controls.Add(this.txtReverseDetail);
+            this.Controls.Add(this.txtReverseCount);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.txtReverse);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.txtForwardDetail);
+            this.Controls.Add(this.txtForwardCount);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.txtForward);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtBreathDetail);
             this.Controls.Add(this.txtBreath);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.cboPortName);
@@ -249,6 +365,17 @@ namespace SleepMointorDemo
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox txtBreath;
         private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.RichTextBox txtBreathDetail;
+        private System.Windows.Forms.TextBox txtForward;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtForwardCount;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox txtForwardDetail;
+        private System.Windows.Forms.TextBox txtReverse;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtReverseCount;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txtReverseDetail;
     }
 }
 

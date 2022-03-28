@@ -31,9 +31,11 @@ namespace SleepMonitor.Services
 
         //波峰
         private HeartBeatService _peakService = new HeartBeatService("正向波");
+        public int PeakCount { get; private set; }  //正向波计数器
 
         //波谷
         private HeartBeatService _troughService = new HeartBeatService("反向波");
+        public int TroughCount { get; private set; } //反向波计数器
 
         public HeartBeatMonitorService()
         {
@@ -41,6 +43,7 @@ namespace SleepMonitor.Services
             {
                 if (_peakService.Count > _troughService.Count)
                 {
+                    PeakCount = _peakService.Count;
                     GetHeartBeat("正向波心率", result);
                 }
             };
@@ -49,6 +52,7 @@ namespace SleepMonitor.Services
             {
                 if (_peakService.Count < _troughService.Count)
                 {
+                    TroughCount = _troughService.Count;
                     GetHeartBeat("反向波心率", result);
                 }
             };
