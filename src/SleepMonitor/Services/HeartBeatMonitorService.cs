@@ -71,6 +71,11 @@ namespace SleepMonitor.Services
         {
             foreach (var item in model.HeartBeats)
             {
+                if (_heartBeatCount > 2147483647)
+                {
+                    _heartBeatCount = 0;
+                }
+
                 _heartBeats.Enqueue(item);
                 HeartBeatFilter();
                 _heartBeatCount++;
@@ -149,7 +154,7 @@ namespace SleepMonitor.Services
         private void HeartBeatWaveValid()
         {
 
-            if (_raws.Count < 27)
+            if (_raws.Count <= 27)
             {
                 return;
             }
