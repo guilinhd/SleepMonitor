@@ -41,20 +41,26 @@ namespace SleepMonitor.Services
         {
             _peakService.GetHeartBeat += (result) =>
             {
-                if (_peakService.Count > _troughService.Count)
-                {
-                    PeakCount = _peakService.Count;
-                    GetHeartBeat("正向波心率", result);
-                }
+                //if (_peakService.Count > _troughService.Count)
+                //{
+                //    PeakCount = _peakService.Count;
+                //    GetHeartBeat("正向波心率", result);
+                //}
+
+                PeakCount = _peakService.Count;
+                GetHeartBeat("正向波心率", result);
             };
 
             _troughService.GetHeartBeat += (result) =>
             {
-                if (_peakService.Count < _troughService.Count)
-                {
-                    TroughCount = _troughService.Count;
-                    GetHeartBeat("反向波心率", result);
-                }
+                //if (_peakService.Count < _troughService.Count)
+                //{
+                //    TroughCount = _troughService.Count;
+                //    GetHeartBeat("反向波心率", result);
+                //}
+
+                TroughCount = _troughService.Count;
+                GetHeartBeat("反向波心率", result);
             };
         }
 
