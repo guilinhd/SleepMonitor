@@ -164,20 +164,20 @@ namespace SleepMointorDemo
             {
                 txtReverse.Text = count.ToString("0.0");
                 txtReverseCount.Text = _heartBeatMonitorService.TroughCount.ToString();
-                txtReverseDetail.Text += count.ToString("0.0") + "\r\n";
+                txtReverseDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtReverseDetail.Text;
             }
             else
             {
                 txtForward.Text = count.ToString("0.0");
                 txtForwardCount.Text = _heartBeatMonitorService.PeakCount.ToString();
-                txtForwardDetail.Text += count.ToString("0.0") + "\r\n";
+                txtForwardDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtForwardDetail.Text;
             }
         }
 
         private void GetBreath(double count)
         {
             txtBreath.Text = count.ToString("0.0");
-            txtBreathDetail.Text += count.ToString("0.0") + "\r";
+            txtBreathDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtBreathDetail.Text;
         }
 
         /// <summary>
