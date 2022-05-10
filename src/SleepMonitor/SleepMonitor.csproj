@@ -49,6 +49,7 @@
     <Compile Include="Services\BreathMonitorService.cs" />
     <Compile Include="Services\BreathService.cs" />
     <Compile Include="Services\DifferenceService.cs" />
+    <Compile Include="Services\BreathServiceExtensions.cs" />
     <Compile Include="Services\HeartBeatMonitorService.cs" />
     <Compile Include="Services\HeartBeatService.cs" />
     <Compile Include="Services\WaveService.cs" />
