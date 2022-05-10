@@ -1,9 +1,5 @@
 ﻿using SleepMonitor.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SleepMonitor.Services
 {
@@ -63,7 +59,7 @@ namespace SleepMonitor.Services
                 service.waveService.Dequeue();
             }
 
-            return this;
+            return service;
         }
 
         /// <summary>
