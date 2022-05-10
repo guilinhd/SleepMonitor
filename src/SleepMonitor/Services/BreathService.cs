@@ -31,10 +31,11 @@ namespace SleepMonitor.Services
         private DifferenceService differenceService = new DifferenceService(7);
 
         /// <summary>
-        /// 添加传感器数据
+        /// 滤波
         /// </summary>
-        /// <param name="model">传感器数据</param>
-        public void Add(SensorModel model)
+        /// <param name="model">呼吸数据</param>
+        /// <returns></returns>
+        public BreathService Average(SensorModel model)
         {
             if (_breathCount > 2147483647)
             {
@@ -44,12 +45,18 @@ namespace SleepMonitor.Services
             _breathCount++;
             _breathWaveCount++;
 
-            #region 滤波
             averageService.Add(model.Breath);
             averageService.Filter();
-            #endregion
 
-            #region 寻波峰谷
+            return this;
+        }
+
+        /// <summary>
+        /// 寻波峰谷
+        /// </summary>
+        /// <returns></returns>
+        public BreathService Wave()
+        {
             waveService.TotalCount = _breathCount;
             waveService.WaveCount = _breathWaveCount;
             waveService.Datas = averageService;
@@ -59,17 +66,30 @@ namespace SleepMonitor.Services
                 averageService.Dequeue();
                 _breathWaveCount = waveService.WaveCount;
             }
-            #endregion
 
-            #region 计算峰谷差
+            return this;
+        }
+
+        /// <summary>
+        /// 计算峰谷差
+        /// </summary>
+        /// <returns></returns>
+        public BreathService Difference()
+        {
             differenceService.Datas = waveService;
             if (differenceService.Filter())
             {
                 waveService.Dequeue();
             }
-            #endregion
 
-            #region 取呼吸值
+            return this;
+        }
+
+        /// <summary>
+        /// 取呼吸值
+        /// </summary>
+        public void Build()
+        {
             if (differenceService.Count > 4)
             {
                 differenceService.Dequeue();
@@ -79,7 +99,6 @@ namespace SleepMonitor.Services
                     GetBreath(600 / average);
                 }
             }
-            #endregion
         }
     }
 }
