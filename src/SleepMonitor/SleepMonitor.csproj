@@ -41,12 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IServices\IFilter.cs" />
     <Compile Include="Models\SensorModel.cs" />
     <Compile Include="Models\SensorRawModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AverageService.cs" />
     <Compile Include="Services\BreathMonitorService.cs" />
+    <Compile Include="Services\BreathService.cs" />
+    <Compile Include="Services\DifferenceService.cs" />
     <Compile Include="Services\HeartBeatMonitorService.cs" />
     <Compile Include="Services\HeartBeatService.cs" />
+    <Compile Include="Services\WaveService.cs" />
     <Compile Include="Utils\Function.cs" />
     <Compile Include="Utils\PortControlHelper.cs" />
   </ItemGroup>

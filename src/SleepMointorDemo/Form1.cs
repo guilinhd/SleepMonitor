@@ -26,8 +26,8 @@ namespace SleepMointorDemo
         //心跳监测服务
         private HeartBeatMonitorService _heartBeatMonitorService = new HeartBeatMonitorService();
 
-        //呼吸监测服务
-        private BreathMonitorService _breathMonitorService = new BreathMonitorService();
+        //呼吸服务
+        private BreathService _breathService = new BreathService();
 
         public Form1()
         {
@@ -155,7 +155,7 @@ namespace SleepMointorDemo
             cboPortName.DataSource = _pchReceive.PortNameArr;
 
             _heartBeatMonitorService.GetHeartBeat += GetHeartBeat;
-            _breathMonitorService.GetBreath += GetBreath;
+            _breathService.GetBreath += GetBreath;
         }
 
         private void GetHeartBeat(string msg, double count)
@@ -207,10 +207,10 @@ namespace SleepMointorDemo
                 SensorModel model = new SensorModel().GetRaw(data.Substring(4));
 
                 //添加呼吸数据
-                _breathMonitorService.Add(model);
+                _breathService.Add(model);
 
                 //添加心跳数据
-                _heartBeatMonitorService.Add(model);
+                //_heartBeatMonitorService.Add(model);
             }
         }
     }
