@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SleepMonitor.Services
 {
+    /// <summary>
+    /// 生成峰谷差数据
+    /// </summary>
     public class WaveBreathService : Queue<SensorRawModel>, IBaseService<DifferenceService>
     {
         public WaveBreathService(int count)
@@ -19,14 +22,14 @@ namespace SleepMonitor.Services
 
         public bool Filter(DifferenceService service)
         {
-            if (Count < FilterCount)
+            if (Count > FilterCount)
             {
-                return false;
+                service.Enqueue(this.ElementAt(1).X - this.ElementAt(0).X);
+                Dequeue();
+                return true;
             }
-
-            service.Enqueue(this.ElementAt(1).X - this.ElementAt(0).X);
-
-            return true;
+           
+            return false;
         }
     }
 }

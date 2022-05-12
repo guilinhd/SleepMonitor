@@ -6,7 +6,7 @@ namespace SleepMonitor.Services
     public static class BreathServiceExtensions
     {
         /// <summary>
-        /// 添加原始数据
+        /// 初始化
         /// </summary>
         /// <param name="service">呼吸服务</param>
         /// <param name="model">呼吸数据</param>
@@ -56,7 +56,7 @@ namespace SleepMonitor.Services
         }
 
         /// <summary>
-        /// 获取呼吸值服务
+        /// 服务结束
         /// </summary>
         /// <param name="service"></param>
         public static void Build(this BreathService service)

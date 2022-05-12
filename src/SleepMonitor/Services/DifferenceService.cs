@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SleepMonitor.Services
 {
+    /// <summary>
+    /// 生成最终呼吸数据
+    /// </summary>
     public class DifferenceService : Queue<double>, IBaseService<DifferenceService>
     {
         public BreathService BreathService { set; get; }

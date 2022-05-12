@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SleepMonitor.Services
 {
     /// <summary>
-    /// 添加原始数据并添加滤波后的数据
+    /// 生成滤波数据
     /// </summary>
     public class InitService : Queue<double>, IBaseService<AverageService>
     {

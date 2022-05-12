@@ -25,7 +25,7 @@ namespace SleepMonitor.Services
         public InitService intiService = new InitService(50);
 
         //滤波服务
-        public AverageService averageService = new AverageService(50);
+        public AverageService averageService = new AverageService(7);
 
         //寻峰服务
         public WaveBreathService waveService = new WaveBreathService(7);

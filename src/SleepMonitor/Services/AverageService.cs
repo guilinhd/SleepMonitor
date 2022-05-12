@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace SleepMonitor.Services
 {
+    /// <summary>
+    /// 生成波峰波谷数据
+    /// </summary>
     public class AverageService : Queue<double>, IBaseService<WaveBreathService>
     {
         private int _waveCount = 0;
@@ -23,49 +26,50 @@ namespace SleepMonitor.Services
 
         public bool Filter(WaveBreathService service)
         {
-            if (Count < FilterCount)
+            if (Count >= FilterCount)
             {
-                return false;
-            }
+                //左边3个数据的平均值
+                double leftValue = (this.ElementAt(0) + this.ElementAt(1) + this.ElementAt(2)) / 3;
+                //后边3个数据的平均值
+                double RightValue = (this.ElementAt(4) + this.ElementAt(5) + this.ElementAt(6)) / 3;
+                //中间第3个值
+                double midValue = this.ElementAt(3);
 
-            //左边3个数据的平均值
-            double leftValue = (this.ElementAt(0) + this.ElementAt(1) + this.ElementAt(2)) / 3;
-            //后边3个数据的平均值
-            double RightValue = (this.ElementAt(4) + this.ElementAt(5) + this.ElementAt(6)) / 3;
-            //中间第3个值
-            double midValue = this.ElementAt(3);
-
-            //最后一个波形的类型
-            bool waveType = false;
-            if (Count > 0)
-            {
-                waveType = !service.Last().Type;
-            }
-            int waveStatus = 0;
-            if (leftValue < midValue && RightValue < midValue && waveType && _waveCount > 20)  //强制寻波峰
-            {
-                waveStatus = 1;
-            }
-            else if (leftValue >= midValue && RightValue >= midValue && !waveType && _waveCount > 20) //强制寻波谷
-            {
-                waveStatus = 2;
-            }
-
-            if (waveStatus > 0)
-            {
-                service.Enqueue(new SensorRawModel()
+                //最后一个波形的类型
+                bool waveType = false;
+                if (service.Count > 0)
                 {
-                    Type = waveStatus == 1,
-                    X = _totalCount
-                });
+                    waveType = !service.Last().Type;
+                }
+                int waveStatus = 0;
+                if (leftValue < midValue && RightValue < midValue && waveType && _waveCount > 20)  //强制寻波峰
+                {
+                    waveStatus = 1;
+                }
+                else if (leftValue >= midValue && RightValue >= midValue && !waveType && _waveCount > 20) //强制寻波谷
+                {
+                    waveStatus = 2;
+                }
 
-                _waveCount = 0;
+                if (waveStatus > 0)
+                {
+                    service.Enqueue(new SensorRawModel()
+                    {
+                        Type = waveStatus == 1,
+                        X = _totalCount
+                    });
+
+                    _waveCount = 0;
+                }
+
+                //移除第一个数据
+                Dequeue();
+
+                return true;
             }
-
-            //移除第一个数据
-            Dequeue();
-
-            return true;
+            
+            return false;
+            
         }
     }
 }
