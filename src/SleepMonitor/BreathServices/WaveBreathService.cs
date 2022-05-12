@@ -11,7 +11,7 @@ namespace SleepMonitor.Services
     /// <summary>
     /// 生成峰谷差数据
     /// </summary>
-    public class WaveBreathService : Queue<SensorRawModel>, IBaseService<DifferenceService>
+    public class WaveBreathService : Queue<SensorRawModel>, IBaseService<DifferenceBreathService>
     {
         public WaveBreathService(int count)
         {
@@ -20,7 +20,7 @@ namespace SleepMonitor.Services
 
         public int FilterCount { set; get; }
 
-        public bool Filter(DifferenceService service)
+        public bool Filter(DifferenceBreathService service)
         {
             if (Count > FilterCount)
             {

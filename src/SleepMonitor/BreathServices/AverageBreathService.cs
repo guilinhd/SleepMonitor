@@ -10,7 +10,7 @@ namespace SleepMonitor.Services
     /// <summary>
     /// 生成波峰波谷数据
     /// </summary>
-    public class AverageService : Queue<double>, IBaseService<WaveBreathService>
+    public class AverageBreathService : Queue<double>, IBaseService<WaveBreathService>
     {
         private int _waveCount = 0;
         public int WaveCount { set => _waveCount = value; get => _waveCount; }
@@ -19,7 +19,7 @@ namespace SleepMonitor.Services
         public int TotalCount { set => _totalCount = value; }
 
         private int FilterCount { set; get; }
-        public AverageService(int count)
+        public AverageBreathService(int count)
         {
             FilterCount = count;
         }
