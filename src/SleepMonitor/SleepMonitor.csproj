@@ -41,18 +41,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IServices\IFilter.cs" />
+    <Compile Include="HeartBeatServices\HeartBeatChildService.cs" />
+    <Compile Include="HeartBeatServices\HeartBeatService.cs" />
+    <Compile Include="HeartBeatServices\HeartBeatServiceExtensions.cs" />
+    <Compile Include="IServices\IBaseService.cs" />
     <Compile Include="Models\SensorModel.cs" />
     <Compile Include="Models\SensorRawModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AverageService.cs" />
+    <Compile Include="BreathServices\AverageBreathService.cs" />
     <Compile Include="BreathServices\BreathMonitorService.cs" />
     <Compile Include="BreathServices\BreathService.cs" />
-    <Compile Include="Services\DifferenceService.cs" />
+    <Compile Include="BreathServices\DifferenceBreathService.cs" />
     <Compile Include="BreathServices\BreathServiceExtensions.cs" />
     <Compile Include="Services\HeartBeatMonitorService.cs" />
     <Compile Include="Services\HeartBeatService.cs" />
-    <Compile Include="Services\WaveService.cs" />
+    <Compile Include="Services\InitService.cs" />
+    <Compile Include="Services\MinuteHeartBeatService.cs" />
+    <Compile Include="BreathServices\WaveBreathService.cs" />
+    <Compile Include="Services\WaveHeartBeatService.cs" />
+    <Compile Include="Services\WaveValidHeartBeatService.cs" />
     <Compile Include="Utils\Function.cs" />
     <Compile Include="Utils\PortControlHelper.cs" />
   </ItemGroup>
