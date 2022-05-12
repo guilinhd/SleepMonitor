@@ -21,6 +21,7 @@ namespace SleepMonitor.Services
         /// </summary>
         public Action<double> GetBreath;
 
+        //初始化服务
         public InitService intiService = new InitService(50);
 
         //滤波服务

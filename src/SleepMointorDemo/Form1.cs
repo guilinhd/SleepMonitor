@@ -228,11 +228,6 @@ namespace SleepMointorDemo
                 SensorModel model = new SensorModel().GetRaw(data.Substring(4));
 
                 //添加呼吸数据
-                //_breathService
-                //    .Average(model)   
-                //    .Wave()
-                //    .Difference()
-                //    .Build();
                 _breathService
                     .Init(model)
                     .Average()

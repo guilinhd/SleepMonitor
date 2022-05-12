@@ -31,7 +31,6 @@ namespace SleepMonitor.Services
         /// 滤波服务
         /// </summary>
         /// <param name="service">呼吸服务</param>
-        /// <param name="model">呼吸数据</param>
         /// <returns></returns>
         public static BreathService Average(this BreathService service)
         {

@@ -18,7 +18,6 @@ namespace SleepMonitor.Services
             FilterCount = count;
         }
 
-
         public bool Filter(DifferenceService service)
         {
             if (Count > FilterCount)
