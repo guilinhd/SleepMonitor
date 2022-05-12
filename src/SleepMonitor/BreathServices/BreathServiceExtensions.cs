@@ -6,7 +6,7 @@ namespace SleepMonitor.Services
     public static class BreathServiceExtensions
     {
         /// <summary>
-        /// 初始化
+        /// 初始化-处理原始数据
         /// </summary>
         /// <param name="service">呼吸服务</param>
         /// <param name="model">呼吸数据</param>
@@ -28,7 +28,7 @@ namespace SleepMonitor.Services
         }
 
         /// <summary>
-        /// 滤波服务
+        /// 处理滤波数据
         /// </summary>
         /// <param name="service">呼吸服务</param>
         /// <returns></returns>
@@ -45,7 +45,7 @@ namespace SleepMonitor.Services
         }
 
         /// <summary>
-        /// 寻波峰谷服务
+        /// 处理波峰谷数据
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace SleepMonitor.Services
         }
 
         /// <summary>
-        /// 服务结束
+        /// 服务结束-处理峰谷差数据
         /// </summary>
         /// <param name="service"></param>
         public static void Build(this BreathService service)
