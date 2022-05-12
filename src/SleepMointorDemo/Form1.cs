@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SleepMointorDemo
 {
     public partial class Form1 : Form
@@ -24,7 +25,7 @@ namespace SleepMointorDemo
         private PortControlHelper _pchReceive = new PortControlHelper();
 
         //心跳监测服务
-        private HeartBeatMonitorService _heartBeatMonitorService = new HeartBeatMonitorService();
+        private HeartBeatService _heartBeatService = new HeartBeatService();
 
         //呼吸服务
         private BreathService _breathService = new BreathService();
@@ -39,6 +40,26 @@ namespace SleepMointorDemo
             MyFormSet();
         }
 
+        private void txtTest_Click(object sender, EventArgs e)
+        {
+            string input = txtForwardDetail.Text;
+
+            _rcvBuff = input.Replace("AA33", ",AA33");//串口数据包分割
+            _rcvBuff = _rcvBuff.Replace("AA35", ",AA35");//串口数据包分割
+            string[] ssa = _rcvBuff.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < ssa.Length; i++)
+            {
+                if (i == ssa.Length - 1)//这是数据包的尾巴，丢入缓存
+                {
+                    _rcvPre = ssa[i];
+                }
+                if (i != ssa.Length - 1)//这是正常取出来的完整数据包
+                {
+                    DataHand(ssa[i]);
+                }
+
+            }
+        }
         /// <summary>
         /// 开启或关闭 两个通信的串口，刷新按钮状态
         /// </summary>
@@ -154,24 +175,24 @@ namespace SleepMointorDemo
         {
             cboPortName.DataSource = _pchReceive.PortNameArr;
 
-            _heartBeatMonitorService.GetHeartBeat += GetHeartBeat;
+            _heartBeatService.GetHeartBeat += GetHeartBeat;
             _breathService.GetBreath += GetBreath;
         }
 
         private void GetHeartBeat(string msg, double count)
         {
-            if (msg.Contains("反向波"))
-            {
-                txtReverse.Text = count.ToString("0.0");
-                txtReverseCount.Text = _heartBeatMonitorService.TroughCount.ToString();
-                txtReverseDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtReverseDetail.Text;
-            }
-            else
-            {
-                txtForward.Text = count.ToString("0.0");
-                txtForwardCount.Text = _heartBeatMonitorService.PeakCount.ToString();
-                txtForwardDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtForwardDetail.Text;
-            }
+            //if (msg.Contains("反向波"))
+            //{
+            //    txtReverse.Text = count.ToString("0.0");
+            //    txtReverseCount.Text = _heartBeatService.TroughCount.ToString();
+            //    txtReverseDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtReverseDetail.Text;
+            //}
+            //else
+            //{
+            //    txtForward.Text = count.ToString("0.0");
+            //    txtForwardCount.Text = _heartBeatService.PeakCount.ToString();
+            //    txtForwardDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtForwardDetail.Text;
+            //}
         }
 
         private void GetBreath(double count)
@@ -207,15 +228,29 @@ namespace SleepMointorDemo
                 SensorModel model = new SensorModel().GetRaw(data.Substring(4));
 
                 //添加呼吸数据
+                //_breathService
+                //    .Average(model)   
+                //    .Wave()
+                //    .Difference()
+                //    .Build();
                 _breathService
-                    .Average(model)   
+                    .Init(model)
+                    .Average()
                     .Wave()
-                    .Difference()
                     .Build();
 
+
                 //添加心跳数据
-                //_heartBeatMonitorService.Add(model);
+                //foreach (var item in model.HeartBeats)
+                //{
+                //    _heartBeatService
+                //        .Average(item)
+                //        .Wave()
+                //        .WaveValid();
+                //}
             }
         }
+
+        
     }
 }

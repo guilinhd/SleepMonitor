@@ -8,27 +8,33 @@ using System.Threading.Tasks;
 
 namespace SleepMonitor.Services
 {
-    public class DifferenceService : Queue<double>, IFilter
+    public class DifferenceService : Queue<double>, IBaseService<DifferenceService>
     {
-        private Queue<SensorRawModel> _datas = new Queue<SensorRawModel>();
-        public Queue<SensorRawModel> Datas { set => _datas = value; }
-
+        public BreathService BreathService { set; get; }
+         
+        private int FilterCount { set; get; }
         public DifferenceService(int count)
         {
             FilterCount = count;
         }
 
-        public int FilterCount { private set; get; }
 
-        public bool Filter()
+        public bool Filter(DifferenceService service)
         {
-            if (_datas.Count <= FilterCount)
+            if (Count > FilterCount)
             {
-                return false;
+                Dequeue();
+                double average = this.Average();
+                if (average != 0)
+                {
+                    BreathService.GetBreath(600 / average);
+                    return true;
+                }
             }
 
-            Enqueue(_datas.ElementAt(1).X - _datas.ElementAt(0).X);
-            return true;
+            return false;
         }
     }
+
+
 }

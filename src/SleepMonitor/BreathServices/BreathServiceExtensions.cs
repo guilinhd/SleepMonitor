@@ -6,12 +6,12 @@ namespace SleepMonitor.Services
     public static class BreathServiceExtensions
     {
         /// <summary>
-        /// 滤波
+        /// 添加原始数据
         /// </summary>
         /// <param name="service">呼吸服务</param>
         /// <param name="model">呼吸数据</param>
         /// <returns></returns>
-        public static BreathService Average(this BreathService service, SensorModel model)
+        public static BreathService Init(this BreathService service, SensorModel model)
         {
             if (service._breathCount > 2147483647)
             {
@@ -21,62 +21,49 @@ namespace SleepMonitor.Services
             service._breathCount++;
             service._breathWaveCount++;
 
-            service.averageService.Add(model.Breath);
-            service.averageService.Filter();
+            service.intiService.Enqueue(model.Breath);
+            service.intiService.Filter(service.averageService);
 
             return service;
         }
 
         /// <summary>
-        /// 寻波峰谷
+        /// 滤波服务
+        /// </summary>
+        /// <param name="service">呼吸服务</param>
+        /// <param name="model">呼吸数据</param>
+        /// <returns></returns>
+        public static BreathService Average(this BreathService service)
+        {
+            service.averageService.TotalCount = service._breathCount;
+            service.averageService.WaveCount = service._breathWaveCount;
+
+            if (service.averageService.Filter(service.waveService))
+            {
+                service._breathWaveCount = service.averageService.WaveCount;
+            }
+            return service;
+        }
+
+        /// <summary>
+        /// 寻波峰谷服务
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
         public static BreathService Wave(this BreathService service)
         {
-            service.waveService.TotalCount = service._breathCount;
-            service.waveService.WaveCount = service._breathWaveCount;
-            service.waveService.Datas = service.averageService;
-
-            if (service.waveService.Filter())
-            {
-                service.averageService.Dequeue();
-                service._breathWaveCount = service.waveService.WaveCount;
-            }
-
+            service.waveService.Filter(service.differenceService);
             return service;
         }
 
         /// <summary>
-        /// 计算峰谷差
-        /// </summary>
-        /// <returns></returns>
-        public static BreathService Difference(this BreathService service)
-        {
-            service.differenceService.Datas = service.waveService;
-            if (service.differenceService.Filter())
-            {
-                service.waveService.Dequeue();
-            }
-
-            return service;
-        }
-
-        /// <summary>
-        /// 获取呼吸值
+        /// 获取呼吸值服务
         /// </summary>
         /// <param name="service"></param>
         public static void Build(this BreathService service)
         {
-            if (service.differenceService.Count > 4)
-            {
-                service.differenceService.Dequeue();
-                double average = service.differenceService.Average();
-                if (average != 0)
-                {
-                    service.GetBreath(600 / average);
-                }
-            }
+            service.differenceService.BreathService = service;
+            service.differenceService.Filter(null);
         }
     }
 }

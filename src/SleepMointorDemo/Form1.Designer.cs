@@ -58,6 +58,7 @@ namespace SleepMointorDemo
             this.txtReverseCount = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txtReverseDetail = new System.Windows.Forms.TextBox();
+            this.txtTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Btn_receive
@@ -305,11 +306,22 @@ namespace SleepMointorDemo
             this.txtReverseDetail.Size = new System.Drawing.Size(319, 355);
             this.txtReverseDetail.TabIndex = 56;
             // 
+            // txtTest
+            // 
+            this.txtTest.Location = new System.Drawing.Point(167, 69);
+            this.txtTest.Name = "txtTest";
+            this.txtTest.Size = new System.Drawing.Size(75, 23);
+            this.txtTest.TabIndex = 57;
+            this.txtTest.Text = "测试";
+            this.txtTest.UseVisualStyleBackColor = true;
+            this.txtTest.Click += new System.EventHandler(this.txtTest_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 468);
+            this.Controls.Add(this.txtTest);
             this.Controls.Add(this.txtReverseDetail);
             this.Controls.Add(this.txtReverseCount);
             this.Controls.Add(this.label19);
@@ -376,6 +388,7 @@ namespace SleepMointorDemo
         private System.Windows.Forms.TextBox txtReverseCount;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtReverseDetail;
+        private System.Windows.Forms.Button txtTest;
     }
 }
 
