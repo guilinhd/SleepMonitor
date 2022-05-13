@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BreathServices\DifferenceService.cs" />
     <Compile Include="BreathServices\FilteringService.cs" />
     <Compile Include="BreathServices\MonitorService.cs" />
     <Compile Include="BreathServices\WaveService.cs" />
