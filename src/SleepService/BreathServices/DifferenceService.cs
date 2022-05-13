@@ -12,5 +12,11 @@ namespace SleepService.BreathServices
         public DifferenceService(int count) : base(count)
         {
         }
+
+        public override bool Filter()
+        {
+            Func = () => true;
+            return base.Filter();
+        }
     }
 }
