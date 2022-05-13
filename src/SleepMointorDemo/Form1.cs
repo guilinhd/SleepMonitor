@@ -59,6 +59,7 @@ namespace SleepMointorDemo
 
             }
         }
+
         /// <summary>
         /// 开启或关闭 两个通信的串口，刷新按钮状态
         /// </summary>
@@ -115,36 +116,6 @@ namespace SleepMointorDemo
         }
 
         /// <summary>
-        /// 窗体初始化
-        /// </summary>
-        private void MyFormSet()
-        {
-            cboPortName.DataSource = _pchReceive.PortNameArr;
-
-            InitBreathService();
-
-            InitHeartBeatService();
-        }
-
-        /// <summary>
-        /// 刷新按钮状态
-        /// </summary>
-        /// <param name="state"></param>
-        private void FreshBtnState(bool state)
-        {
-            if (state)
-            {
-                Btn_open.Text = "关闭串口";
-                Btn_receive.Enabled = true;
-            }
-            else
-            {
-                Btn_open.Text = "打开串口";
-                Btn_receive.Enabled = false;
-            }
-        }
-
-        /// <summary>
         /// 处理串口获取到的数据
         /// </summary>
         /// <param name="sender"></param>
@@ -181,65 +152,46 @@ namespace SleepMointorDemo
         }
 
         /// <summary>
-        /// 接收到的数据，写入缓存
+        /// 窗体初始化
         /// </summary>
-        /// <param name="data"></param>
-        private void ComReceiveData(string data)
+        private void MyFormSet()
         {
-            try
-            {
-                this.Invoke(new EventHandler(delegate { _rcvPortBuff.Enqueue(data); }));
+            cboPortName.DataSource = _pchReceive.PortNameArr;
 
-            }
-            catch { }
+            InitBreathService();
+
+            InitHeartBeatService();
         }
-
-
-        /// <summary>
-        /// 调用服务解析呼吸、心跳
-        /// </summary>
-        /// <param name="data">单行数据</param>
-        private void DataHand(string data)
-        {
-            if ((data.Contains("AA33") && data.Length == 108) | (data.Contains("AA35") && data.Length == 112))
-            {
-                //解析数据
-                SensorModel model = new SensorModel().GetRaw(data.Substring(4));
-
-                //添加呼吸数据
-                _breathService.Add(model.Breath);
-
-                //添加心跳数据
-            }
-        }
-
-        
-        
-
-        
 
         /// <summary>
         /// 配置呼吸监测服务
         /// </summary>
         private void InitBreathService()
         {
-            _breathService.FilterCount = 4;
+            #region 添加处理数据服务
+            SleepService.Services.InitService init = new SleepService.Services.InitService(50);
+            SleepService.BreathServices.FilteringService filter = new SleepService.BreathServices.FilteringService(7);
+            SleepService.BreathServices.WaveService wave = new SleepService.BreathServices.WaveService(7);
+            SleepService.BreathServices.DifferenceService diff = new SleepService.BreathServices.DifferenceService(4);
+
+            _breathService.AddService(init);
+            _breathService.Init = init; 
+
+            _breathService.AddService(filter);
+            _breathService.AddService(wave);
+
+            _breathService.AddService(diff);
+            _breathService.End = diff;
+            #endregion
+
+            #region 处理获得呼吸数据
             _breathService.GetBreath += (count) =>
             {
                 txtBreath.Text = count.ToString("0.0");
                 txtBreathDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtBreathDetail.Text;
             };
-
-            #region 添加处理数据服务
-            SleepService.Services.InitService init = new SleepService.Services.InitService(50);
-            SleepService.BreathServices.FilteringService filter = new SleepService.BreathServices.FilteringService(7);
-            SleepService.BreathServices.WaveService wave = new SleepService.BreathServices.WaveService(7);
-
-            _breathService.AddService(init);
-            _breathService.AddService(filter);
-            _breathService.AddService(wave);
             #endregion
-            
+
             _breathService.BuildService();
         }
 
@@ -262,6 +214,56 @@ namespace SleepMointorDemo
             //    txtForwardDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtForwardDetail.Text;
             //}
             #endregion
+        }
+
+        /// <summary>
+        /// 刷新按钮状态
+        /// </summary>
+        /// <param name="state"></param>
+        private void FreshBtnState(bool state)
+        {
+            if (state)
+            {
+                Btn_open.Text = "关闭串口";
+                Btn_receive.Enabled = true;
+            }
+            else
+            {
+                Btn_open.Text = "打开串口";
+                Btn_receive.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// 接收到的数据，写入缓存
+        /// </summary>
+        /// <param name="data"></param>
+        private void ComReceiveData(string data)
+        {
+            try
+            {
+                this.Invoke(new EventHandler(delegate { _rcvPortBuff.Enqueue(data); }));
+
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// 调用服务解析呼吸、心跳
+        /// </summary>
+        /// <param name="data">单行数据</param>
+        private void DataHand(string data)
+        {
+            if ((data.Contains("AA33") && data.Length == 108) | (data.Contains("AA35") && data.Length == 112))
+            {
+                //解析数据
+                SensorModel model = new SensorModel().GetRaw(data.Substring(4));
+
+                //添加呼吸数据
+                _breathService.Add(model);
+
+                //添加心跳数据
+            }
         }
     }
 }
