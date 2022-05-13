@@ -52,7 +52,6 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\InitService.cs" />
     <Compile Include="Utils\Function.cs" />
-    <Compile Include="Utils\PortControlHelper.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
