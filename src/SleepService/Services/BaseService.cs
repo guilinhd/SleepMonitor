@@ -33,7 +33,7 @@ namespace SleepService.Services
 
         public virtual bool Filter()
         {
-            return Count >= _filterCount;
+            return Count > _filterCount;
         }
     }
 }

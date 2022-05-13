@@ -16,7 +16,7 @@ namespace SleepService.BreathServices
         public FilteringService(int count) : base(count)
         {
         }
-
+       
         public override bool Filter()
         {
             if (base.Filter())
@@ -39,11 +39,11 @@ namespace SleepService.BreathServices
                         waveType = !next.Last().Type;
                     }
                     int waveStatus = 0;
-                    if (leftValue < midValue && RightValue < midValue && waveType && next.WaveCount > 20)  //强制寻波峰
+                    if (leftValue < midValue && RightValue < midValue && waveType && WaveCount > 20)  //强制寻波峰
                     {
                         waveStatus = 1;
                     }
-                    else if (leftValue >= midValue && RightValue >= midValue && !waveType && next.WaveCount > 20) //强制寻波谷
+                    else if (leftValue > midValue && RightValue > midValue && !waveType && WaveCount > 20) //强制寻波谷
                     {
                         waveStatus = 2;
                     }
@@ -53,11 +53,11 @@ namespace SleepService.BreathServices
                         next.Enqueue(new WaveModel()
                         {
                             Type = waveStatus == 1,
-                            X = next.TotalCount,
+                            X = TotalCount,
                             Y = midValue
                         });
-
-                        next.WaveCount = 0;
+                        Console.WriteLine($"有效波形数:{next.Count}, 波形X的值:{TotalCount}, 当前波形计数器:{WaveCount}");
+                        WaveCount = 0;
                     }
 
                     //移除第一个数据

@@ -170,7 +170,7 @@ namespace SleepMointorDemo
         {
             #region 添加处理数据服务
             SleepService.Services.InitService init = new SleepService.Services.InitService(50);
-            SleepService.BreathServices.FilteringService filter = new SleepService.BreathServices.FilteringService(7);
+            SleepService.BreathServices.FilteringService filter = new SleepService.BreathServices.FilteringService(6);
             SleepService.BreathServices.WaveService wave = new SleepService.BreathServices.WaveService(7);
             SleepService.BreathServices.DifferenceService diff = new SleepService.BreathServices.DifferenceService(4);
 

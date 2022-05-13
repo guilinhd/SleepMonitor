@@ -23,7 +23,7 @@ namespace SleepService.Services
                     //取平均值
                     var average = this.Select(c => c.Y).ToArray().Average();
                     next.Enqueue(new WaveModel() { Y = average });
-
+                    
                     //移除第一个数据
                     Dequeue();
                 }

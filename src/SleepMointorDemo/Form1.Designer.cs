@@ -59,6 +59,10 @@ namespace SleepMointorDemo
             this.label19 = new System.Windows.Forms.Label();
             this.txtReverseDetail = new System.Windows.Forms.TextBox();
             this.txtTest = new System.Windows.Forms.Button();
+            this.txtBreathAverage = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBreathDiff = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Btn_receive
@@ -197,16 +201,16 @@ namespace SleepMointorDemo
             // 
             // txtBreath
             // 
-            this.txtBreath.Location = new System.Drawing.Point(90, 69);
+            this.txtBreath.Location = new System.Drawing.Point(85, 60);
             this.txtBreath.Name = "txtBreath";
-            this.txtBreath.Size = new System.Drawing.Size(69, 21);
+            this.txtBreath.Size = new System.Drawing.Size(184, 21);
             this.txtBreath.TabIndex = 45;
             this.txtBreath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(25, 74);
+            this.label42.Location = new System.Drawing.Point(15, 64);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(65, 12);
             this.label42.TabIndex = 44;
@@ -214,9 +218,9 @@ namespace SleepMointorDemo
             // 
             // txtBreathDetail
             // 
-            this.txtBreathDetail.Location = new System.Drawing.Point(19, 96);
+            this.txtBreathDetail.Location = new System.Drawing.Point(18, 193);
             this.txtBreathDetail.Name = "txtBreathDetail";
-            this.txtBreathDetail.Size = new System.Drawing.Size(263, 355);
+            this.txtBreathDetail.Size = new System.Drawing.Size(263, 412);
             this.txtBreathDetail.TabIndex = 46;
             this.txtBreathDetail.Text = "";
             // 
@@ -256,11 +260,11 @@ namespace SleepMointorDemo
             // 
             // txtForwardDetail
             // 
-            this.txtForwardDetail.Location = new System.Drawing.Point(304, 96);
+            this.txtForwardDetail.Location = new System.Drawing.Point(303, 193);
             this.txtForwardDetail.Multiline = true;
             this.txtForwardDetail.Name = "txtForwardDetail";
             this.txtForwardDetail.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtForwardDetail.Size = new System.Drawing.Size(339, 355);
+            this.txtForwardDetail.Size = new System.Drawing.Size(339, 412);
             this.txtForwardDetail.TabIndex = 51;
             // 
             // txtReverse
@@ -299,16 +303,16 @@ namespace SleepMointorDemo
             // 
             // txtReverseDetail
             // 
-            this.txtReverseDetail.Location = new System.Drawing.Point(668, 96);
+            this.txtReverseDetail.Location = new System.Drawing.Point(667, 193);
             this.txtReverseDetail.Multiline = true;
             this.txtReverseDetail.Name = "txtReverseDetail";
             this.txtReverseDetail.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtReverseDetail.Size = new System.Drawing.Size(319, 355);
+            this.txtReverseDetail.Size = new System.Drawing.Size(319, 412);
             this.txtReverseDetail.TabIndex = 56;
             // 
             // txtTest
             // 
-            this.txtTest.Location = new System.Drawing.Point(167, 69);
+            this.txtTest.Location = new System.Drawing.Point(85, 156);
             this.txtTest.Name = "txtTest";
             this.txtTest.Size = new System.Drawing.Size(75, 23);
             this.txtTest.TabIndex = 57;
@@ -316,11 +320,49 @@ namespace SleepMointorDemo
             this.txtTest.UseVisualStyleBackColor = true;
             this.txtTest.Click += new System.EventHandler(this.txtTest_Click);
             // 
+            // txtBreathAverage
+            // 
+            this.txtBreathAverage.Location = new System.Drawing.Point(85, 92);
+            this.txtBreathAverage.Name = "txtBreathAverage";
+            this.txtBreathAverage.Size = new System.Drawing.Size(184, 21);
+            this.txtBreathAverage.TabIndex = 59;
+            this.txtBreathAverage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 96);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "呼吸平均值";
+            // 
+            // txtBreathDiff
+            // 
+            this.txtBreathDiff.Location = new System.Drawing.Point(85, 124);
+            this.txtBreathDiff.Name = "txtBreathDiff";
+            this.txtBreathDiff.Size = new System.Drawing.Size(184, 21);
+            this.txtBreathDiff.TabIndex = 61;
+            this.txtBreathDiff.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 128);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 60;
+            this.label2.Text = "呼吸峰谷差";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1002, 468);
+            this.ClientSize = new System.Drawing.Size(1002, 629);
+            this.Controls.Add(this.txtBreathDiff);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtBreathAverage);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.txtTest);
             this.Controls.Add(this.txtReverseDetail);
             this.Controls.Add(this.txtReverseCount);
@@ -389,6 +431,10 @@ namespace SleepMointorDemo
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtReverseDetail;
         private System.Windows.Forms.Button txtTest;
+        private System.Windows.Forms.TextBox txtBreathAverage;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBreathDiff;
+        private System.Windows.Forms.Label label2;
     }
 }
 

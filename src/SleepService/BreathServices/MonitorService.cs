@@ -77,14 +77,14 @@ namespace SleepService.BreathServices
             #endregion
 
             #region 过滤数据
-            foreach (var service in _services)
+            for (int i = 0; i < _services.Count - 1; i++)
             {
-                service.WaveCount = _waveCount;
-                service.TotalCount = _totalCount;
+                _services[i].WaveCount = _waveCount;
+                _services[i].TotalCount = _totalCount;
 
-                service.Filter();
+                _services[i].Filter();
 
-                _waveCount = service.WaveCount;
+                _waveCount = _services[i].WaveCount;
             }
             #endregion
 

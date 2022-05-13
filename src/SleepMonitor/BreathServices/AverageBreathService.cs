@@ -59,6 +59,7 @@ namespace SleepMonitor.Services
                         X = _totalCount
                     });
 
+                    
                     _waveCount = 0;
                 }
 

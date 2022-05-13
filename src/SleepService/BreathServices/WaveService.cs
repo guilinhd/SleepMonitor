@@ -27,6 +27,7 @@ namespace SleepService.BreathServices
                     //取峰谷差
                     next.Enqueue(new WaveModel() { X = this.ElementAt(1).X - this.ElementAt(0).X });
 
+                    Console.WriteLine($"有效峰谷差个数{next.Count}");
                     //移除第一个数据
                     Dequeue();
                 }
