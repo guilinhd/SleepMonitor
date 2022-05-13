@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SleepMonitor.Services
+namespace SleepMonitor.HeartBeatServices
 {
     /// <summary>
     /// 心跳数据服务
@@ -43,6 +43,7 @@ namespace SleepMonitor.Services
         /// 心跳数据计数器
         /// </summary>
         public int TotalCount { set; get; }
+
         /// <summary>
         /// 更新心跳
         /// </summary>

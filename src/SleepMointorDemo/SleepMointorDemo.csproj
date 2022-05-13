@@ -80,9 +80,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SleepMonitor\SleepMonitor.csproj">
-      <Project>{182ff8de-733d-4e67-b6ef-6d514f61fcb9}</Project>
-      <Name>SleepMonitor</Name>
+    <ProjectReference Include="..\SleepService\SleepService.csproj">
+      <Project>{ee960290-f1b1-4c9f-b758-d1b75a103993}</Project>
+      <Name>SleepService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SleepMonitor.Services
+namespace SleepMonitor.HeartBeatServices
 {
     /// <summary>
     /// 心跳监测服务
@@ -159,61 +159,40 @@ namespace SleepMonitor.Services
         /// </summary>
         private void HeartBeatWaveValid()
         {
-
             if (_raws.Count <= 27)
             {
                 return;
             }
 
-            //最大峰谷差和平均值
+            //峰谷差
             double[] dots = _raws.Select(f => f.Y).ToArray();
-            double average = dots.Average();
-
-            SensorRawModel raw = _raws.Dequeue();
-            if (!raw.Type)
+            double average = 0.5 * (dots.Max() - dots.Min());
+                                                  //波峰                //波谷     
+            SensorRawModel raw = _raws.Dequeue(); SensorRawModel peak;  SensorRawModel trough;  
+            if (!raw.Type)      //当前波形是波谷
             {
-                //波谷
-                HeartBeatWaveValidTrough(raw, average);
+                trough = raw;  //直接设置波谷
             }
             else
             {
-                //波峰
-                HeartBeatWaveValidPeak(average);
+                trough = _raws.Dequeue();   //设置下一个波形是波谷
             }
-        }
+            peak = _raws.Dequeue(); //设置波峰
 
-        /// <summary>
-        /// 获取有效的波峰信息
-        /// </summary>
-        private void HeartBeatWaveValidPeak(double average)
-        {
-            //波谷
-            _raws.Dequeue();
-            //波峰
-            SensorRawModel peak = _raws.Dequeue();
-
+            #region 仰睡状态
             double ssfgc = peak.Y - _raws.ElementAt(0).Y;//仰睡状态的实时峰谷差
             double ssfgcmf = _raws.ElementAt(1).Y - _raws.ElementAt(2).Y;//仰睡数列内头部两个元素的峰谷差
             double ssfgcmi = _raws.ElementAt(3).Y - _raws.ElementAt(4).Y;
 
             //当前波峰后面3个波峰是否是连续递减
-            if (ssfgc > 0.5 * average && ssfgc > ssfgcmf && ssfgc > ssfgcmi)
+            if (ssfgc > average && ssfgc > ssfgcmf && ssfgc > ssfgcmi)
             {
                 _peakService.Add(peak.X);
             }
+            #endregion
 
-        }
 
-        /// <summary>
-        /// 获取有效的波谷信息
-        /// </summary>
-        private void HeartBeatWaveValidTrough(SensorRawModel wave, double average)
-        {
-            //波谷
-            SensorRawModel trough = wave;
-            //波峰
-            SensorRawModel peak = _raws.Dequeue();
-
+            #region 侧睡状态
             double csfgc = Math.Abs(peak.Y - trough.Y);//侧睡状态的实时峰谷差
             double csfgcmf = Math.Abs(_raws.ElementAt(1).Y - _raws.ElementAt(0).Y);//侧睡数列内头部两个元素的峰谷差
             double csfgcmi = Math.Abs(_raws.ElementAt(3).Y - _raws.ElementAt(2).Y);
@@ -222,6 +201,10 @@ namespace SleepMonitor.Services
             {
                 _troughService.Add(trough.X);
             }
+            #endregion
+
         }
+
+       
     }
 }

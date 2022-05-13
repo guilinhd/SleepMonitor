@@ -1,6 +1,5 @@
-﻿using SleepMonitor.Models;
-using SleepMonitor.Services;
-using SleepMonitor.Utils;
+﻿using SleepService.Models;
+using SleepService.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,10 +24,10 @@ namespace SleepMointorDemo
         private PortControlHelper _pchReceive = new PortControlHelper();
 
         //心跳监测服务
-        private HeartBeatService _heartBeatService = new HeartBeatService();
+        //private HeartBeatService _heartBeatService = new HeartBeatService();
 
         //呼吸服务
-        private BreathService _breathService = new BreathService();
+        private SleepService.BreathServices.MonitorService _breathService = new SleepService.BreathServices.MonitorService();
 
         public Form1()
         {
@@ -116,6 +115,18 @@ namespace SleepMointorDemo
         }
 
         /// <summary>
+        /// 窗体初始化
+        /// </summary>
+        private void MyFormSet()
+        {
+            cboPortName.DataSource = _pchReceive.PortNameArr;
+
+            InitBreathService();
+
+            InitHeartBeatService();
+        }
+
+        /// <summary>
         /// 刷新按钮状态
         /// </summary>
         /// <param name="state"></param>
@@ -167,38 +178,6 @@ namespace SleepMointorDemo
 
                 _rcvBuff = "";
             }
-
-
-        }
-
-        private void MyFormSet()
-        {
-            cboPortName.DataSource = _pchReceive.PortNameArr;
-
-            _heartBeatService.GetHeartBeat += GetHeartBeat;
-            _breathService.GetBreath += GetBreath;
-        }
-
-        private void GetHeartBeat(string msg, double count)
-        {
-            //if (msg.Contains("反向波"))
-            //{
-            //    txtReverse.Text = count.ToString("0.0");
-            //    txtReverseCount.Text = _heartBeatService.TroughCount.ToString();
-            //    txtReverseDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtReverseDetail.Text;
-            //}
-            //else
-            //{
-            //    txtForward.Text = count.ToString("0.0");
-            //    txtForwardCount.Text = _heartBeatService.PeakCount.ToString();
-            //    txtForwardDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtForwardDetail.Text;
-            //}
-        }
-
-        private void GetBreath(double count)
-        {
-            txtBreath.Text = count.ToString("0.0");
-            txtBreathDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtBreathDetail.Text;
         }
 
         /// <summary>
@@ -215,7 +194,7 @@ namespace SleepMointorDemo
             catch { }
         }
 
-        
+
         /// <summary>
         /// 调用服务解析呼吸、心跳
         /// </summary>
@@ -228,24 +207,61 @@ namespace SleepMointorDemo
                 SensorModel model = new SensorModel().GetRaw(data.Substring(4));
 
                 //添加呼吸数据
-                _breathService
-                    .Init(model)
-                    .Average()
-                    .Wave()
-                    .Build();
-
+                _breathService.Add(model.Breath);
 
                 //添加心跳数据
-                //foreach (var item in model.HeartBeats)
-                //{
-                //    _heartBeatService
-                //        .Average(item)
-                //        .Wave()
-                //        .WaveValid();
-                //}
             }
         }
 
         
+        
+
+        
+
+        /// <summary>
+        /// 配置呼吸监测服务
+        /// </summary>
+        private void InitBreathService()
+        {
+            _breathService.FilterCount = 4;
+            _breathService.GetBreath += (count) =>
+            {
+                txtBreath.Text = count.ToString("0.0");
+                txtBreathDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtBreathDetail.Text;
+            };
+
+            #region 添加处理数据服务
+            SleepService.Services.InitService init = new SleepService.Services.InitService(50);
+            SleepService.BreathServices.FilteringService filter = new SleepService.BreathServices.FilteringService(7);
+            SleepService.BreathServices.WaveService wave = new SleepService.BreathServices.WaveService(7);
+
+            _breathService.AddService(init);
+            _breathService.AddService(filter);
+            _breathService.AddService(wave);
+            #endregion
+            
+            _breathService.BuildService();
+        }
+
+        /// <summary>
+        /// 配置心跳监测服务
+        /// </summary>
+        private void InitHeartBeatService()
+        {
+            #region MyRegion
+            //if (msg.Contains("反向波"))
+            //{
+            //    txtReverse.Text = count.ToString("0.0");
+            //    txtReverseCount.Text = _heartBeatService.TroughCount.ToString();
+            //    txtReverseDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtReverseDetail.Text;
+            //}
+            //else
+            //{
+            //    txtForward.Text = count.ToString("0.0");
+            //    txtForwardCount.Text = _heartBeatService.PeakCount.ToString();
+            //    txtForwardDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtForwardDetail.Text;
+            //}
+            #endregion
+        }
     }
 }
