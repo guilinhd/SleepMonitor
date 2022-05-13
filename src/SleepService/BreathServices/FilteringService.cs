@@ -51,6 +51,7 @@ namespace SleepService.BreathServices
                     wave.Type = waveStatus == 1;
                     wave.X = TotalCount;
 
+                    Console.WriteLine($"有效波形数:{next.Count + 1}, 波形X的值:{TotalCount}, 当前波形计数器:{WaveCount}");
                     WaveCount = 0;
                     return true;
                 }
@@ -58,14 +59,8 @@ namespace SleepService.BreathServices
                 return false;
             };
             Wave = wave;
-            
-            var result = base.Filter();
-            if (result)
-            {
-                Console.WriteLine($"有效波形数:{next.Count}, 波形X的值:{TotalCount}, 当前波形计数器:{WaveCount}");
-            }
 
-            return result;
+            return base.Filter();
         }
     }
 }
