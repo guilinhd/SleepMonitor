@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepMointorDemo", "..\Slee
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepMonitor", "SleepMonitor.csproj", "{182FF8DE-733D-4E67-B6EF-6D514F61FCB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepService", "..\SleepService\SleepService.csproj", "{EE960290-F1B1-4C9F-B758-D1B75A103993}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{182FF8DE-733D-4E67-B6EF-6D514F61FCB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{182FF8DE-733D-4E67-B6EF-6D514F61FCB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{182FF8DE-733D-4E67-B6EF-6D514F61FCB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE960290-F1B1-4C9F-B758-D1B75A103993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE960290-F1B1-4C9F-B758-D1B75A103993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE960290-F1B1-4C9F-B758-D1B75A103993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE960290-F1B1-4C9F-B758-D1B75A103993}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
