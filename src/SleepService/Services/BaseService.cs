@@ -20,6 +20,8 @@ namespace SleepService.Services
 
         public int TotalCount { get; set; }
         public int WaveCount { get; set; }
+        public WaveModel Wave { get; set; }
+        public Func<bool> Func { get; set; }
 
         public void SetNext(IBaseService next)
         {
@@ -33,7 +35,20 @@ namespace SleepService.Services
 
         public virtual bool Filter()
         {
-            return Count > _filterCount;
+            if (Count > _filterCount)
+            {
+                if (Func.Invoke())
+                {
+                    if (_next != null)
+                    {
+                        _next.Enqueue(Wave);
+
+                        Dequeue();
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

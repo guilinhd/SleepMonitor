@@ -19,55 +19,53 @@ namespace SleepService.BreathServices
        
         public override bool Filter()
         {
-            if (base.Filter())
+            var next = GetNext();
+            WaveModel wave = new WaveModel();
+            Func = () =>
             {
-                var next = GetNext();
+                //左边3个数据的平均值
+                double leftValue = (this.ElementAt(0).Y + this.ElementAt(1).Y + this.ElementAt(2).Y) / 3;
+                //后边3个数据的平均值
+                double RightValue = (this.ElementAt(4).Y + this.ElementAt(5).Y + this.ElementAt(6).Y) / 3;
+                //中间第3个值
+                double midValue = this.ElementAt(3).Y;
 
-                if (next != null)
+                //最后一个波形的类型
+                bool waveType = false;
+                if (next.Count > 0)
                 {
-                    //左边3个数据的平均值
-                    double leftValue = (this.ElementAt(0).Y + this.ElementAt(1).Y + this.ElementAt(2).Y) / 3;
-                    //后边3个数据的平均值
-                    double RightValue = (this.ElementAt(4).Y + this.ElementAt(5).Y + this.ElementAt(6).Y) / 3;
-                    //中间第3个值
-                    double midValue = this.ElementAt(3).Y;
-
-                    //最后一个波形的类型
-                    bool waveType = false;
-                    if (next.Count > 0)
-                    {
-                        waveType = !next.Last().Type;
-                    }
-                    int waveStatus = 0;
-                    if (leftValue < midValue && RightValue < midValue && waveType && WaveCount > 20)  //强制寻波峰
-                    {
-                        waveStatus = 1;
-                    }
-                    else if (leftValue > midValue && RightValue > midValue && !waveType && WaveCount > 20) //强制寻波谷
-                    {
-                        waveStatus = 2;
-                    }
-
-                    if (waveStatus > 0)
-                    {
-                        next.Enqueue(new WaveModel()
-                        {
-                            Type = waveStatus == 1,
-                            X = TotalCount,
-                            Y = midValue
-                        });
-                        Console.WriteLine($"有效波形数:{next.Count}, 波形X的值:{TotalCount}, 当前波形计数器:{WaveCount}");
-                        WaveCount = 0;
-                    }
-
-                    //移除第一个数据
-                    Dequeue();
+                    waveType = !next.Last().Type;
+                }
+                int waveStatus = 0;
+                if (leftValue < midValue && RightValue < midValue && waveType && WaveCount > 20)  //强制寻波峰
+                {
+                    waveStatus = 1;
+                }
+                else if (leftValue > midValue && RightValue > midValue && !waveType && WaveCount > 20) //强制寻波谷
+                {
+                    waveStatus = 2;
                 }
 
-                return true;
+                if (waveStatus > 0)
+                {
+                    wave.Type = waveStatus == 1;
+                    wave.X = TotalCount;
+
+                    WaveCount = 0;
+                    return true;
+                }
+
+                return false;
+            };
+            Wave = wave;
+            
+            var result = base.Filter();
+            if (result)
+            {
+                Console.WriteLine($"有效波形数:{next.Count}, 波形X的值:{TotalCount}, 当前波形计数器:{WaveCount}");
             }
 
-            return false;
+            return result;
         }
     }
 }

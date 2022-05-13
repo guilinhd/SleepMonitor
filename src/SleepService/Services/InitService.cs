@@ -15,23 +15,10 @@ namespace SleepService.Services
 
         public override bool Filter()
         {
-            if (base.Filter())
-            {
-                var next = GetNext();
-                if (next != null)
-                {
-                    //取平均值
-                    var average = this.Select(c => c.Y).ToArray().Average();
-                    next.Enqueue(new WaveModel() { Y = average });
-                    
-                    //移除第一个数据
-                    Dequeue();
-                }
+            Func = () => true;
+            Wave = new WaveModel() { Y = this.Select(c => c.Y).ToArray().Average() };
 
-                return true;
-            }
-
-            return false;
+            return base.Filter();
         }
     }
 }
