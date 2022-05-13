@@ -1,4 +1,5 @@
 ﻿using SleepService.IServices;
+using SleepService.Models;
 using SleepService.Services;
 using System;
 using System.Collections.Generic;
@@ -10,22 +11,26 @@ namespace SleepService.BreathServices
 {
     public class MonitorService
     {
-        private List<IBaseService> _services = new List<IBaseService>();
-        private BaseService _initService; //第一个服务,通过该服务添加呼吸数据,然后就可以依次执行过滤
-        private BaseService _endService;    //最后一个服务, 通过该服务获取最终的有效呼吸数据
-
+        private List<IBaseService> _services = new List<IBaseService>();    //处理数据服务列表
         private int _totalCount = 0;    //数据累计
         private int _waveCount = 0;     //有效波形数据小计
+        
+        private BaseService _initService;
+        /// <summary>
+        /// 第一个服务,通过该服务添加呼吸数据,然后就可以依次执行过滤
+        /// </summary>
+        public BaseService Init { set => _initService = value; }
+       
+        private BaseService _endService;
+        /// <summary>
+        /// 最后一个服务, 通过该服务获取最终的有效呼吸数据
+        /// </summary>
+        public BaseService End { set => _endService = value; }
 
         /// <summary>
         /// 获得有效呼吸数据后通知外部
         /// </summary>
         public Action<double> GetBreath;    
-
-        /// <summary>
-        /// 有效呼吸数据队列的最小长度
-        /// </summary>
-        public int FilterCount { set; get; }  
 
         /// <summary>
         /// 添加处理数据服务
@@ -37,7 +42,7 @@ namespace SleepService.BreathServices
         }
 
         /// <summary>
-        /// 依次设置当前服务的下一个服务, 并获取第一个、最后一个服务
+        /// 依次设置当前服务的下一个服务
         /// </summary>
         public void BuildService()
         {
@@ -48,16 +53,13 @@ namespace SleepService.BreathServices
                     _services[i].SetNext(_services[i + 1]);
                 }
             }
-
-            _initService = (BaseService)_services.First();
-            _endService = (BaseService)_services.Last();
         }
 
         /// <summary>
         /// 添加呼吸数据，激活过滤
         /// </summary>
         /// <param name="value">呼吸数据</param>
-        public void Add(double value)
+        public void Add(SensorModel model)
         {
             if (_totalCount > 2147483647)
             {
@@ -68,10 +70,9 @@ namespace SleepService.BreathServices
             _waveCount++;
 
             #region 添加新数据
-            _initService.Enqueue(new Models.WaveModel()
+            _initService.Enqueue(new WaveModel()
             {
-                X = _totalCount,
-                Y = value
+                Y = model.Breath
             });
             #endregion
 
@@ -88,7 +89,7 @@ namespace SleepService.BreathServices
             #endregion
 
             #region 判断是否获得有效数据
-            if (_endService.Count >= FilterCount)
+            if (_endService.Filter())
             {
                 _endService.Dequeue();
                 double average = _endService.Select(c => c.X).Average();
@@ -99,7 +100,5 @@ namespace SleepService.BreathServices
             }
             #endregion
         }
-
-
     }
 }
