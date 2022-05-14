@@ -55,6 +55,7 @@ namespace SleepService.HeartBeatServices
 
                 return false;
             };
+            Wave = wave;
 
             return base.Filter();
         }

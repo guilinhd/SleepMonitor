@@ -28,6 +28,7 @@ namespace SleepService.HeartBeatWaveServices
 
                 return false;
             };
+            Wave = wave;
 
             return base.Filter();
         }
