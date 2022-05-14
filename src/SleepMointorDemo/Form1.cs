@@ -240,7 +240,7 @@ namespace SleepMointorDemo
         /// </summary>
         private void InitHeartBeatWaveServices()
         {
-            _peakService = GetInstance();
+            _peakService = CreateInstance();
             _peakService.GetValidDatas += (datas) =>
             {
                 double count = datas.First().Value;
@@ -249,7 +249,7 @@ namespace SleepMointorDemo
                 txtForwardDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtForwardDetail.Text;
             };
 
-            _troughService = GetInstance();
+            _troughService = CreateInstance();
             _troughService.GetValidDatas += (datas) =>
             {
                 double count = datas.First().Value;
@@ -263,7 +263,7 @@ namespace SleepMointorDemo
         /// 生成心跳数据波形分析服务
         /// </summary>
         /// <returns>分析服务</returns>
-        private AnalysisServiceFactory GetInstance()
+        private AnalysisServiceFactory CreateInstance()
         {
             AnalysisServiceFactory service = new AnalysisServiceFactory();
 
@@ -274,7 +274,7 @@ namespace SleepMointorDemo
             SleepService.HeartBeatWaveServices.FilteringService filter = new SleepService.HeartBeatWaveServices.FilteringService(7);
             service.AddService(filter);
 
-            SleepService.HeartBeatWaveServices.WaveService wave = new SleepService.HeartBeatWaveServices.WaveService(7);
+            SleepService.HeartBeatWaveServices.WaveService wave = new SleepService.HeartBeatWaveServices.WaveService(6);
             service.AddService(wave);
 
             SleepService.HeartBeatWaveServices.EndService end = new SleepService.HeartBeatWaveServices.EndService(3);
@@ -330,7 +330,7 @@ namespace SleepMointorDemo
                 SensorModel model = new SensorModel().GetRaw(data.Substring(4));
 
                 //添加呼吸数据
-                _breathService.Add(new double[] { model.Breath});
+                //_breathService.Add(new double[] { model.Breath});
 
                 //添加心跳数据
                 _heartBeatService.Add(model.HeartBeats.ToArray());
