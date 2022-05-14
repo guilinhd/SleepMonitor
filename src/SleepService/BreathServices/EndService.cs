@@ -23,7 +23,7 @@ namespace SleepService.BreathServices
                 if (average != 0)
                 {
                     Datas.Clear();
-                    Datas.Add("呼吸值:", average);
+                    Datas.Add("呼吸", average);
                     return true;
                 }
             }
