@@ -44,6 +44,8 @@
     <Compile Include="BreathServices\EndService.cs" />
     <Compile Include="BreathServices\FilteringService.cs" />
     <Compile Include="BreathServices\WaveService.cs" />
+    <Compile Include="HeartBeatServices\EndService.cs" />
+    <Compile Include="HeartBeatServices\FilteringService.cs" />
     <Compile Include="IServices\IBaseService.cs" />
     <Compile Include="Models\SensorModel.cs" />
     <Compile Include="Models\WaveModel.cs" />
