@@ -33,6 +33,11 @@ namespace SleepService.Services
             return _next;
         }
 
+        /// <summary>
+        /// 最终结果
+        /// </summary>
+        public double Data { get;  set; }
+
         public virtual bool Filter()
         {
             if (Count > _filterCount)
@@ -42,10 +47,12 @@ namespace SleepService.Services
                     if (_next != null)
                     {
                         _next.Enqueue(Wave);
-
-                        Dequeue();
                     }
+
+                    Dequeue();
                 }
+
+                return true;
             }
 
             return false;
