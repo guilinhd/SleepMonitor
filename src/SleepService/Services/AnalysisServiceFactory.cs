@@ -14,17 +14,29 @@ namespace SleepService.Services
         private int _totalCount = 0;    //数据累计
         private int _waveCount = 0;     //有效波形数据小计
 
-        private BaseService _initService;
+        private BaseService _startService;
         /// <summary>
         /// 第一个服务,通过该服务添加呼吸数据,然后就可以依次执行过滤
         /// </summary>
-        public BaseService Init { set => _initService = value; }
+        public BaseService Start 
+        {
+            set
+            {
+                _startService = value;
+                _services.Add(value);
+            }
+        }
 
         private BaseService _endService;
         /// <summary>
         /// 最后一个服务, 通过该服务获取最终的有效呼吸数据
         /// </summary>
-        public BaseService End { set => _endService = value; }
+        public BaseService End {
+            set { 
+                _endService = value;
+                _services.Add(value);
+            }
+        }
 
         /// <summary>
         /// 获得有效呼吸数据后通知外部
@@ -72,16 +84,22 @@ namespace SleepService.Services
         /// <param name="data"></param>
         private void Analysis(double data)
         {
+            #region 计数器设置
             if (_totalCount > 2147483647)
             {
                 _totalCount = 0;
             }
-
             _totalCount++;
+
+            if (_waveCount > 2147483647)
+            {
+                _waveCount = 0;
+            }
             _waveCount++;
+            #endregion
 
             #region 添加新数据
-            _initService.Enqueue(new WaveModel()
+            _startService.Enqueue(new WaveModel()
             {
                 Y = data
             });
@@ -102,15 +120,10 @@ namespace SleepService.Services
             #region 判断是否获得有效数据
             if (_endService.Filter())
             {
-                _endService.Dequeue();
-                double average = _endService.Select(c => c.X).Average();
-                if (average != 0)
-                {
-                    GetBreath(600 / average);
-                }
+                GetBreath(_endService.Data);
             }
             #endregion
         }
     }
 }
-}
+
