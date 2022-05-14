@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BreathServices\DifferenceService.cs" />
+    <Compile Include="BreathServices\EndService.cs" />
     <Compile Include="BreathServices\FilteringService.cs" />
     <Compile Include="BreathServices\WaveService.cs" />
     <Compile Include="IServices\IBaseService.cs" />
@@ -51,6 +51,7 @@
     <Compile Include="Services\AnalysisServiceFactory.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\InitService.cs" />
+    <Compile Include="Services\StartService.cs" />
     <Compile Include="Utils\Function.cs" />
   </ItemGroup>
   <ItemGroup />
