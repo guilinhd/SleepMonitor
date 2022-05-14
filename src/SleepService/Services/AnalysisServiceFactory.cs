@@ -39,6 +39,11 @@ namespace SleepService.Services
         }
 
         /// <summary>
+        /// 有效数据计数器
+        /// </summary>
+        public int ValidCount { get; private set; } = 0;
+
+        /// <summary>
         /// 获得有效呼吸数据后通知外部
         /// </summary>
         public Action<Dictionary<string, double>> GetValidDatas;
@@ -120,6 +125,7 @@ namespace SleepService.Services
             #region 判断是否获得有效数据
             if (_endService.Filter())
             {
+                ValidCount++;
                 GetValidDatas(_endService.Datas);
             }
             #endregion
