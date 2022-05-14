@@ -182,8 +182,9 @@ namespace SleepMointorDemo
             #endregion
 
             #region 处理获得呼吸数据
-            _breathService.GetBreath += (count) =>
+            _breathService.GetBreath += (datas) =>
             {
+                double count = datas.First().Value;
                 txtBreath.Text = count.ToString("0.0");
                 txtBreathDetail.Text = count.ToString("0.0") + " (" + DateTime.Now.ToString("MM-dd hh:mm:ss") + ")" + "\r\n" + txtBreathDetail.Text;
             };
