@@ -168,19 +168,17 @@ namespace SleepMointorDemo
         private void InitBreathService()
         {
             #region 添加处理数据服务
-            InitService init = new InitService(50);
+            StartService start = new StartService(50);
+            _breathService.Start = start;
+
             SleepService.BreathServices.FilteringService filter = new SleepService.BreathServices.FilteringService(6);
-            SleepService.BreathServices.WaveService wave = new SleepService.BreathServices.WaveService(7);
-            SleepService.BreathServices.DifferenceService diff = new SleepService.BreathServices.DifferenceService(4);
-
-            _breathService.AddService(init);
-            _breathService.Init = init; 
-
             _breathService.AddService(filter);
+
+            SleepService.BreathServices.WaveService wave = new SleepService.BreathServices.WaveService(7);
             _breathService.AddService(wave);
 
-            _breathService.AddService(diff);
-            _breathService.End = diff;
+            SleepService.BreathServices.EndService end = new SleepService.BreathServices.EndService(4);
+            _breathService.End = end;
             #endregion
 
             #region 处理获得呼吸数据
