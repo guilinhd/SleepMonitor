@@ -50,7 +50,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AnalysisServiceFactory.cs" />
     <Compile Include="Services\BaseService.cs" />
-    <Compile Include="Services\InitService.cs" />
     <Compile Include="Services\StartService.cs" />
     <Compile Include="Utils\Function.cs" />
   </ItemGroup>
