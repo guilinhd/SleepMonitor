@@ -16,7 +16,7 @@ namespace SleepService.HeartBeatServices
 
         public override bool Filter()
         {
-            Func = () => true;
+            Func = () => false;
 
             if (base.Filter())
             {
