@@ -25,6 +25,7 @@ namespace SleepService.HeartBeatWaveServices
                 double[] values = this.Select(c => c.Y).ToArray();
                 if (values.Max() - values.Min() < 3)
                 {
+                    Datas.Clear();
                     Datas.Add("心跳", values.Average());
                     return true;
                 }
