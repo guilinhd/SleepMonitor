@@ -41,7 +41,7 @@ namespace SleepService.Services
         /// <summary>
         /// 获得有效呼吸数据后通知外部
         /// </summary>
-        public Action<double> GetBreath;
+        public Action<Dictionary<string, double>> GetBreath;
 
         /// <summary>
         /// 添加处理数据服务
@@ -120,7 +120,7 @@ namespace SleepService.Services
             #region 判断是否获得有效数据
             if (_endService.Filter())
             {
-                GetBreath(_endService.Data);
+                GetBreath(_endService.Datas);
             }
             #endregion
         }
