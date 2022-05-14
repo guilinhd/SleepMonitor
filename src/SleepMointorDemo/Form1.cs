@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using SleepService.Services;
 
 namespace SleepMointorDemo
 {
@@ -25,8 +25,8 @@ namespace SleepMointorDemo
         //心跳监测服务
         //private HeartBeatService _heartBeatService = new HeartBeatService();
 
-        //呼吸服务
-        private SleepService.BreathServices.MonitorService _breathService = new SleepService.BreathServices.MonitorService();
+        //呼吸数据分析服务
+        private AnalysisServiceFactory _breathService = new AnalysisServiceFactory();
 
         public Form1()
         {
@@ -168,7 +168,7 @@ namespace SleepMointorDemo
         private void InitBreathService()
         {
             #region 添加处理数据服务
-            SleepService.Services.InitService init = new SleepService.Services.InitService(50);
+            InitService init = new InitService(50);
             SleepService.BreathServices.FilteringService filter = new SleepService.BreathServices.FilteringService(6);
             SleepService.BreathServices.WaveService wave = new SleepService.BreathServices.WaveService(7);
             SleepService.BreathServices.DifferenceService diff = new SleepService.BreathServices.DifferenceService(4);
@@ -259,7 +259,7 @@ namespace SleepMointorDemo
                 SensorModel model = new SensorModel().GetRaw(data.Substring(4));
 
                 //添加呼吸数据
-                _breathService.Add(model);
+                _breathService.Add(new double[] { model.Breath});
 
                 //添加心跳数据
             }
