@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="BreathServices\DifferenceService.cs" />
     <Compile Include="BreathServices\FilteringService.cs" />
-    <Compile Include="BreathServices\MonitorService.cs" />
     <Compile Include="BreathServices\WaveService.cs" />
     <Compile Include="IServices\IBaseService.cs" />
     <Compile Include="Models\SensorModel.cs" />
