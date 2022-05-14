@@ -43,6 +43,8 @@ namespace SleepServiceDemo
             }
             #endregion
 
+            Console.WriteLine("结束...");
+
             Console.ReadKey();
         }
     }
