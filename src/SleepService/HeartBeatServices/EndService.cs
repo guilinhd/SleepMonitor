@@ -51,8 +51,8 @@ namespace SleepService.HeartBeatServices
 
                 #region 侧睡状态
                 double csfgc = Math.Abs(peak.Y - trough.Y);//侧睡状态的实时峰谷差
-                double csfgcmf = Math.Abs(_raws.ElementAt(1).Y - _raws.ElementAt(0).Y);//侧睡数列内头部两个元素的峰谷差
-                double csfgcmi = Math.Abs(_raws.ElementAt(3).Y - _raws.ElementAt(2).Y);
+                double csfgcmf = Math.Abs(this.ElementAt(1).Y - this.ElementAt(0).Y);//侧睡数列内头部两个元素的峰谷差
+                double csfgcmi = Math.Abs(this.ElementAt(3).Y - this.ElementAt(2).Y);
 
                 if (csfgc > average && csfgc > csfgcmf && csfgc > csfgcmi)
                 {
