@@ -27,6 +27,8 @@ namespace SleepService.BreathServices
                     Datas.Add("呼吸", 600 / average);
                     return true;
                 }
+
+                return false;
             }
 
             return false;
