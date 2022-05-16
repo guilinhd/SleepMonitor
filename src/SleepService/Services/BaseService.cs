@@ -36,7 +36,7 @@ namespace SleepService.Services
         /// <summary>
         /// 最终结果  key-类型  value-值
         /// </summary>
-        public Dictionary<string, double> Datas { get; set; }
+        public Dictionary<string, double> Datas { get; set; } = new Dictionary<string, double>();
 
         public virtual bool Filter()
         {
