@@ -48,10 +48,8 @@ namespace SleepService.Services
                     {
                         _next.Enqueue(Wave);
                     }
-
-                    Dequeue();
                 }
-
+                Dequeue();
                 return true;
             }
 

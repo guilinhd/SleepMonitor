@@ -22,7 +22,7 @@ namespace SleepService.BreathServices
                 double average = this.Select(c => c.X).Average();
                 if (average != 0)
                 {
-                    Datas.Clear();
+                    Datas = new Dictionary<string, double>();
                     Datas.Add("呼吸", average);
                     return true;
                 }

@@ -19,9 +19,12 @@ namespace SleepService.BreathServices
 
         public override bool Filter()
         {
-            Func = () => true;
-            Wave = new WaveModel() { X = this.ElementAt(1).X - this.ElementAt(0).X };
-
+            Func = () =>
+            {
+                Wave = new WaveModel() { X = this.ElementAt(1).X - this.ElementAt(0).X };
+                return true;
+            };
+            
             return base.Filter();
         }
     }

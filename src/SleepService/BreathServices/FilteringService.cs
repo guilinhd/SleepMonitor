@@ -19,8 +19,6 @@ namespace SleepService.BreathServices
        
         public override bool Filter()
         {
-            var next = GetNext();
-            WaveModel wave = new WaveModel();
             Func = () =>
             {
                 //左边3个数据的平均值
@@ -31,6 +29,7 @@ namespace SleepService.BreathServices
                 double midValue = this.ElementAt(3).Y;
 
                 //最后一个波形的类型
+                var next = GetNext();
                 bool waveType = false;
                 if (next.Count > 0)
                 {
@@ -48,17 +47,19 @@ namespace SleepService.BreathServices
 
                 if (waveStatus > 0)
                 {
-                    wave.Type = waveStatus == 1;
-                    wave.X = TotalCount;
-
+                    Wave = new WaveModel()
+                    {
+                        Type = waveStatus == 1,
+                        X = TotalCount
+                    };
                     Console.WriteLine($"有效波形数:{next.Count + 1}, 波形X的值:{TotalCount}, 当前波形计数器:{WaveCount}");
                     WaveCount = 0;
+
                     return true;
                 }
 
                 return false;
             };
-            Wave = wave;
 
             return base.Filter();
         }
