@@ -16,19 +16,20 @@ namespace SleepService.HeartBeatWaveServices
 
         public override bool Filter()
         {
-            WaveModel wave = new WaveModel();
             Func = () =>
             {
                 double value = Math.Abs(this.ElementAt(0).Y - this.ElementAt(1).Y) * 0.00315 / 1.493;
                 if (value != 0)
                 {
-                    wave.Y = 60 / value;
+                    Wave = new WaveModel()
+                    {
+                        Y = 60 / value
+                    };
                     return true;
                 }
 
                 return false;
             };
-            Wave = wave;
 
             return base.Filter();
         }

@@ -16,7 +16,6 @@ namespace SleepService.HeartBeatWaveServices
 
         public override bool Filter()
         {
-            WaveModel wave = new WaveModel();
             Func = () =>
             {
                 List<double> values = this.Select(c => c.Y).ToList();
@@ -25,12 +24,14 @@ namespace SleepService.HeartBeatWaveServices
 
                 if (middleValues.Max() - middleValues.Min() < 3)
                 {
-                    wave.Y = middleValues.Average();
+                    Wave = new WaveModel()
+                    {
+                        Y = middleValues.Average()
+                    };
                     return true;
                 }
                 return false;
             };
-            Wave = wave;
 
             return base.Filter();
         }

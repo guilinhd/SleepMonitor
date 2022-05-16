@@ -16,10 +16,10 @@ namespace SleepService.HeartBeatServices
 
         public override bool Filter()
         {
-            var next = GetNext();
-            WaveModel wave = new WaveModel();
             Func = () =>
             {
+                var next = GetNext();
+
                 //左边3个数据的平均值
                 double leftValue = (this.ElementAt(0).Y + this.ElementAt(1).Y + this.ElementAt(2).Y) / 3;
                 //后边3个数据的平均值
@@ -45,17 +45,18 @@ namespace SleepService.HeartBeatServices
 
                 if (waveStatus > 0)
                 {
-                    wave.Type = waveStatus == 1;
-                    wave.X = TotalCount;
-                    wave.Y = midValue;
-
+                    Wave = new WaveModel()
+                    {
+                        Type = waveStatus == 1,
+                        X = TotalCount,
+                        Y = midValue
+                    };
                     Console.WriteLine($"心跳有效波形数:{next.Count + 1}, 心跳波形X的值:{TotalCount}, 当前心跳波形计数器:{WaveCount}");
                     return true;
                 }
 
                 return false;
             };
-            Wave = wave;
 
             return base.Filter();
         }

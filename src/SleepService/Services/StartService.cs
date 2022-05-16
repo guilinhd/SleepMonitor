@@ -15,8 +15,11 @@ namespace SleepService.Services
 
         public override bool Filter()
         {
-            Func = () => true;
-            Wave = new WaveModel() { Y = this.Select(c => c.Y).ToArray().Average() };
+            Func = () =>
+            {
+                Wave = new WaveModel() { Y = this.Select(c => c.Y).ToArray().Average() };
+                return true;
+            };
 
             return base.Filter();
         }
