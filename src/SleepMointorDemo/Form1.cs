@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SleepService.Services;
+using System.IO;
 
 namespace SleepMointorDemo
 {
@@ -46,8 +47,8 @@ namespace SleepMointorDemo
 
         private void txtTest_Click(object sender, EventArgs e)
         {
-            string input = txtForwardDetail.Text;
-
+            string input = File.ReadAllText(@"d:\data.txt", Encoding.ASCII).Replace(" ", "");
+            
             _rcvBuff = input.Replace("AA33", ",AA33");//串口数据包分割
             _rcvBuff = _rcvBuff.Replace("AA35", ",AA35");//串口数据包分割
             string[] ssa = _rcvBuff.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
@@ -330,10 +331,10 @@ namespace SleepMointorDemo
                 SensorModel model = new SensorModel().GetRaw(data.Substring(4));
 
                 //添加呼吸数据
-                //_breathService.Add(new double[] { model.Breath});
+                _breathService.Add(new double[] { model.Breath});
 
                 //添加心跳数据
-                _heartBeatService.Add(model.HeartBeats.ToArray());
+                //_heartBeatService.Add(model.HeartBeats.ToArray());
             }
         }
     }

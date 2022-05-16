@@ -42,14 +42,15 @@ namespace SleepService.Services
         {
             if (Count > _filterCount)
             {
-                if (Func.Invoke())
+                if (_next != null)  //不是最后一个环节
                 {
-                    if (_next != null)
+                    if (Func.Invoke())
                     {
                         _next.Enqueue(Wave);
                     }
+                    Dequeue();
                 }
-                Dequeue();
+
                 return true;
             }
 
