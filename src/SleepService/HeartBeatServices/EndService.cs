@@ -17,6 +17,7 @@ namespace SleepService.HeartBeatServices
         public override bool Filter()
         {
             Func = () => false;
+            bool filter = false;
 
             if (base.Filter())
             {
@@ -46,6 +47,7 @@ namespace SleepService.HeartBeatServices
                 if (ssfgc > average && ssfgc > ssfgcmf && ssfgc > ssfgcmi)
                 {
                     Datas.Add("心跳正向波", peakWave.X);
+                    filter = true;
                 }
                 #endregion
 
@@ -57,13 +59,14 @@ namespace SleepService.HeartBeatServices
                 if (csfgc > average && csfgc > csfgcmf && csfgc > csfgcmi)
                 {
                     Datas.Add("心跳反向波", troughWave.X);
+                    filter = true;
                 }
                 #endregion
 
-                return true;
+                return filter;
             }
 
-            return false;
+            return filter;
         }
     }
 }
