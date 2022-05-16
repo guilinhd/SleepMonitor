@@ -19,11 +19,12 @@ namespace SleepService.BreathServices
             Func = () => true;
             if (base.Filter())
             {
+                Dequeue();
                 double average = this.Select(c => c.X).Average();
                 if (average != 0)
                 {
                     Datas.Clear();
-                    Datas.Add("呼吸", average);
+                    Datas.Add("呼吸", 600 / average);
                     return true;
                 }
             }
