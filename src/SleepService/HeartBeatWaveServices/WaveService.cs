@@ -21,13 +21,13 @@ namespace SleepService.HeartBeatWaveServices
                 List<double> values = this.Select(c => c.Y).ToList();
                 values.Sort();
                 double[] middleValues = new double[3] { values[2], values[3], values[4] };
-
                 if (middleValues.Max() - middleValues.Min() < 3)
                 {
                     Wave = new WaveModel()
                     {
                         Y = middleValues.Average()
                     };
+                    
                     return true;
                 }
                 return false;

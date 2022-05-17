@@ -52,7 +52,7 @@ namespace SleepService.BreathServices
                         Type = waveStatus == 1,
                         X = TotalCount
                     };
-                    Console.WriteLine($"有效波形数:{next.Count + 1}, 波形X的值:{TotalCount}, 当前波形计数器:{WaveCount}");
+                    //Console.WriteLine($"有效波形数:{next.Count + 1}, 波形X的值:{TotalCount}, 当前波形计数器:{WaveCount}");
                     WaveCount = 0;
 
                     return true;

@@ -51,7 +51,8 @@ namespace SleepService.HeartBeatServices
                         X = TotalCount,
                         Y = midValue
                     };
-                    Console.WriteLine($"心跳有效波形数:{next.Count + 1}, 心跳波形X的值:{TotalCount}, 当前心跳波形计数器:{WaveCount}");
+                    //Console.WriteLine($"心跳有效波形数:{next.Count + 1}, 心跳波形X的值:{TotalCount}, 当前心跳波形计数器:{WaveCount}");
+                    //Console.WriteLine($"type:{waveStatus.ToString()}, X:{TotalCount}, Y:{midValue}");
                     return true;
                 }
 

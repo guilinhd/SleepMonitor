@@ -208,10 +208,10 @@ namespace SleepMointorDemo
         private void InitHeartBeatService()
         {
             #region 添加处理数据服务
-            StartService start = new StartService(10);
+            StartService start = new StartService(9);
             _heartBeatService.Start = start;
 
-            SleepService.HeartBeatServices.FilteringService filter = new SleepService.HeartBeatServices.FilteringService(7);
+            SleepService.HeartBeatServices.FilteringService filter = new SleepService.HeartBeatServices.FilteringService(6);
             _heartBeatService.AddService(filter);
 
             SleepService.HeartBeatServices.EndService end = new SleepService.HeartBeatServices.EndService(27);
@@ -223,6 +223,7 @@ namespace SleepMointorDemo
             {
                 if (datas.TryGetValue("心跳正向波", out double peak))
                 {
+                    
                     _peakService.Add(new double[] { peak });
                 }
 
@@ -334,7 +335,7 @@ namespace SleepMointorDemo
                 _breathService.Add(new double[] { model.Breath});
 
                 //添加心跳数据
-                //_heartBeatService.Add(model.HeartBeats.ToArray());
+                _heartBeatService.Add(model.HeartBeats.ToArray());
             }
         }
     }

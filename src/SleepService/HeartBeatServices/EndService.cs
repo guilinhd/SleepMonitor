@@ -46,8 +46,8 @@ namespace SleepService.HeartBeatServices
                 //当前波峰后面3个波峰是否是连续递减
                 if (ssfgc > average && ssfgc > ssfgcmf && ssfgc > ssfgcmi)
                 {
-                    Datas.Add("心跳正向波", peakWave.X);
-                    filter = true;
+                    //Datas.Add("心跳正向波", peakWave.X);
+                    //filter = true;
                 }
                 #endregion
 

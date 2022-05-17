@@ -19,6 +19,7 @@ namespace SleepService.HeartBeatWaveServices
             Func = () =>
             {
                 double value = Math.Abs(this.ElementAt(0).Y - this.ElementAt(1).Y) * 0.00315 / 1.493;
+                //Console.WriteLine($"count:{TotalCount}, x:{this.ElementAt(0).Y}");
                 if (value != 0)
                 {
                     Wave = new WaveModel()
@@ -27,7 +28,7 @@ namespace SleepService.HeartBeatWaveServices
                     };
                     return true;
                 }
-
+                
                 return false;
             };
 

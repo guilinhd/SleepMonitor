@@ -27,6 +27,7 @@ namespace SleepService.HeartBeatWaveServices
                     };
                     return true;
                 }
+                
                 return false;
             };
 
